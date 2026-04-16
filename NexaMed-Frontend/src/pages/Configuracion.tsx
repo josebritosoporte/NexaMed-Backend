@@ -83,14 +83,20 @@ export default function Configuracion() {
     loadProfile()
   }, [])
 
-  // Datos del consultorio
-  const [consultorio, setConsultorio] = useState({
-    nombre: 'Centro Médico Las Américas',
-    rif: 'J-12345678-9',
-    direccion: 'Av. Amazonas 1234, Quito',
-    telefono: '+593 2-222-1234',
-    email: 'contacto@centromedico.com',
-    horario: 'Lunes a Viernes: 8:00 AM - 5:00 PM'
+  // Datos del consultorio - cargar desde localStorage o usar valores por defecto
+  const [consultorio, setConsultorio] = useState(() => {
+    const saved = localStorage.getItem('nexamed_consultorio')
+    if (saved) {
+      return JSON.parse(saved)
+    }
+    return {
+      nombre: 'Centro Médico Las Américas',
+      rif: 'J-12345678-9',
+      direccion: 'Av. Amazonas 1234, Quito',
+      telefono: '+593 2-222-1234',
+      email: 'contacto@centromedico.com',
+      horario: 'Lunes a Viernes: 8:00 AM - 5:00 PM'
+    }
   })
 
   // Notificaciones
@@ -146,13 +152,18 @@ export default function Configuracion() {
     }
   }
 
-  // Guardar consultorio
+  // Guardar consultorio en localStorage
   const handleGuardarConsultorio = async () => {
     setIsLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    setShowSuccess(true)
-    setTimeout(() => setShowSuccess(false), 3000)
+    try {
+      localStorage.setItem('nexamed_consultorio', JSON.stringify(consultorio))
+      setShowSuccess(true)
+      setTimeout(() => setShowSuccess(false), 3000)
+    } catch (err) {
+      setError('Error al guardar la configuración del consultorio')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   // Cambiar contraseña

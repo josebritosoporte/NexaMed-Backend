@@ -5,11 +5,35 @@ import { Button } from '@/components/ui/button'
 import { ordenesApi } from '@/services/api'
 import { formatDate } from '@/lib/utils'
 
+interface ConsultorioConfig {
+  nombre: string
+  direccion: string
+  telefono: string
+}
+
 export default function ImprimirOrden() {
   const { id } = useParams()
   const [orden, setOrden] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [consultorio, setConsultorio] = useState<ConsultorioConfig>({
+    nombre: 'Centro Médico Las Américas',
+    direccion: 'Av. Amazonas 1234, Quito',
+    telefono: 'Tel: +593 2-222-1234'
+  })
+
+  // Cargar configuración del consultorio desde localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('nexamed_consultorio')
+    if (saved) {
+      const config = JSON.parse(saved)
+      setConsultorio({
+        nombre: config.nombre || 'Centro Médico Las Américas',
+        direccion: config.direccion || 'Av. Amazonas 1234, Quito',
+        telefono: config.telefono ? `Tel: ${config.telefono}` : 'Tel: +593 2-222-1234'
+      })
+    }
+  }, [])
 
   useEffect(() => {
     const loadOrden = async () => {
@@ -75,9 +99,9 @@ export default function ImprimirOrden() {
       <div className="max-w-2xl mx-auto p-8 print:p-4">
         {/* Header */}
         <div className="text-center border-b-2 border-medical-500 pb-4 mb-6">
-          <h1 className="text-2xl font-bold text-medical-700">Centro Médico Las Américas</h1>
-          <p className="text-sm text-muted-foreground">Av. Amazonas 1234, Quito</p>
-          <p className="text-sm text-muted-foreground">Tel: +593 2-222-1234</p>
+          <h1 className="text-2xl font-bold text-medical-700">{consultorio.nombre}</h1>
+          <p className="text-sm text-muted-foreground">{consultorio.direccion}</p>
+          <p className="text-sm text-muted-foreground">{consultorio.telefono}</p>
         </div>
 
         {/* Título y número de orden */}

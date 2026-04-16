@@ -156,22 +156,17 @@ export default function NuevaOrden() {
   // Tipo de orden
   const [tipoOrden, setTipoOrden] = useState<TipoOrden>('laboratorio')
 
-  // Datos de la orden - Preload con datos de prueba
-  const [diagnosticoPresuntivo, setDiagnosticoPresuntivo] = useState('Hipertensión arterial esencial, control de tratamiento')
+  // Datos de la orden - Inician vacíos para llenado manual
+  const [diagnosticoPresuntivo, setDiagnosticoPresuntivo] = useState('')
   const [motivoSolicitud, setMotivoSolicitud] = useState('')
   const [prioridad, setPrioridad] = useState<'normal' | 'urgente'>('normal')
-  const [observaciones, setObservaciones] = useState('Ayuno de 12 horas para exámenes de laboratorio. Tomar medicación habitual.')
+  const [observaciones, setObservaciones] = useState('')
 
   // Para interconsulta
   const [especialidadDestino, setEspecialidadDestino] = useState('')
 
-  // Exámenes/Estudios seleccionados - Preload con datos de prueba
-  const [examenesSeleccionados, setExamenesSeleccionados] = useState<ExamenSeleccionado[]>([
-    { codigo: 'QUIM', nombre: 'Química Sanguínea (6 elementos)', categoria: 'Bioquímica', indicaciones: 'Glucosa, urea, creatinina, ácido úrico' },
-    { codigo: 'PERFIL-LIP', nombre: 'Perfil Lipídico', categoria: 'Bioquímica', indicaciones: 'Colesterol total, HDL, LDL, triglicéridos' },
-    { codigo: 'HEM', nombre: 'Hematología Completa', categoria: 'Hematología', indicaciones: '' },
-    { codigo: 'UA', nombre: 'Examen General de Orina', categoria: 'Uroanálisis', indicaciones: 'Primera orina de la mañana' }
-  ])
+  // Exámenes/Estudios seleccionados - Inicia vacío
+  const [examenesSeleccionados, setExamenesSeleccionados] = useState<ExamenSeleccionado[]>([])
   const [buscarExamen, setBuscarExamen] = useState('')
 
   // Obtener lista según tipo de orden
