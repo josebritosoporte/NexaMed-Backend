@@ -1,0 +1,10 @@
+[phases.build]
+cmds = [
+    "cd NexaMed-Frontend && npm install && npm run build"
+]
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "npm", "php"]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT router.php"
