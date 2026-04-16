@@ -144,9 +144,9 @@ export default function Login() {
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-8">
-          © 2024 NexaMed. Todos los derechos reservados.
+          © 2026 NexaMed. Todos los derechos reservados.
           <br />
-          Sistema certificado para gestión clínica
+          Un desarrollo de Jose Agustin Brito Ojeda
         </p>
       </div>
     </div>
