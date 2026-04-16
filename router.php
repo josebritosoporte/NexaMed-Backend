@@ -63,6 +63,12 @@ if ($uri === '/seed' || $uri === '/seed/') {
     exit;
 }
 
+// Check environment endpoint
+if ($uri === '/check-env' || $uri === '/check-env/') {
+    require __DIR__ . '/check-env.php';
+    exit;
+}
+
 // Endpoint raíz - información del API
 if ($uri === '/' || $uri === '') {
     header('Content-Type: application/json');
