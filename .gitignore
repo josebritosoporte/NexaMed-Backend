@@ -1,1 +1,32 @@
-node_modules
+# Archivos de configuración local
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencias (si se usan en el futuro)
+vendor/
+node_modules/
+
+# Archivos de prueba temporales
+test-*.php
+!test-api.php
+
+# Backups
+*.bak
+*.backup
+
+# Archivos de caché
+*.cache

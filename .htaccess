@@ -1,0 +1,32 @@
+# NexaMed - Configuración Apache
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /NexaMed-Backend/
+    
+    # Si el archivo o directorio existe, usarlo directamente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Redirigir todas las peticiones a index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Configuración PHP
+<IfModule mod_php.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+    php_value max_execution_time 300
+</IfModule>
+
+# Permitir acceso
+<RequireAll>
+    Require all granted
+</RequireAll>
+
+# Headers de seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>

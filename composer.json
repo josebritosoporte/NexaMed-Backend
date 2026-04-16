@@ -1,0 +1,11 @@
+{
+  "name": "nexamed/nexamed-backend",
+  "description": "Backend API REST para NexaMed - Sistema de Gestión Clínica",
+  "type": "project",
+  "require": {
+    "php": ">=8.0"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}
