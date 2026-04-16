@@ -38,7 +38,11 @@ class Database {
         $this->conn = null;
 
         try {
-            $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->db_name};charset=utf8mb4";
+            // Forzar uso de TCP/IP en lugar de socket Unix
+            // Usar 127.0.0.1 en lugar de localhost para forzar TCP
+            $host = ($this->host === 'localhost') ? '127.0.0.1' : $this->host;
+            
+            $dsn = "mysql:host={$host};port={$this->port};dbname={$this->db_name};charset=utf8mb4";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
