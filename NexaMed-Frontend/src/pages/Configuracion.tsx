@@ -42,7 +42,7 @@ import {
 export default function Configuracion() {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [activeTab, setActiveTab] = useState('perfil')
   const [isLoading, setIsLoading] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
@@ -692,7 +692,7 @@ export default function Configuracion() {
                       <p className="text-sm text-muted-foreground">{colorPrincipal}</p>
                     </div>
                   </div>
-                  <Button style={{ backgroundColor: colorPrimary }} className="text-white">
+                  <Button style={{ backgroundColor: colorPrincipal }} className="text-white">
                     Botón de ejemplo
                   </Button>
                 </div>
@@ -729,5 +729,4 @@ export default function Configuracion() {
   )
 }
 
-// Variable para evitar error de referencia
-const colorPrimary = '#0d9488'
+
