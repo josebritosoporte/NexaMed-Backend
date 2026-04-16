@@ -14,7 +14,7 @@ try {
     $passwordHash = '$2y$10$jR9WEPPI.HzA61KmQSwYg.C1.jL6fYhF3fEyml6BuCIIzVnMgAPZ2';
     
     // Actualizar todos los usuarios de prueba
-    $sql = "UPDATE usuarios SET password_hash = :hash WHERE email IN ('dr.rodriguez@nexamed.com', 'asistente@nexamed.com', 'admin@nexamed.com')";
+    $sql = "UPDATE usuarios SET password_hash = :hash WHERE email IN ('doctor@nexamed.com', 'asistente@nexamed.com', 'admin@nexamed.com')";
     $stmt = $conn->prepare($sql);
     $stmt->execute([':hash' => $passwordHash]);
     
