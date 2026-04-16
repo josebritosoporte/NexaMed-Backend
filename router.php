@@ -38,6 +38,12 @@ if ($uri === '/check-env' || $uri === '/check-env/') {
     exit;
 }
 
+// Update passwords endpoint
+if ($uri === '/database/update-passwords.php' || $uri === '/database/update-passwords') {
+    require __DIR__ . '/database/update-passwords.php';
+    exit;
+}
+
 // Directorio del frontend compilado
 $frontendDist = __DIR__ . '/NexaMed-Frontend/dist';
 
