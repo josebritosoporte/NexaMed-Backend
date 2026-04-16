@@ -332,7 +332,7 @@ export default function Pacientes() {
     
     setIsDeleting(true)
     try {
-      await pacientesApi.delete(parseInt(selectedPaciente.id))
+      await pacientesApi.delete(selectedPaciente.id as any)
       setPacientes(pacientes.filter(p => p.id !== selectedPaciente.id))
       setIsEliminarModalOpen(false)
       setSelectedPaciente(null)
@@ -594,7 +594,7 @@ export default function Pacientes() {
       <VerPacienteModal
         isOpen={isVerModalOpen}
         onClose={() => setIsVerModalOpen(false)}
-        paciente={selectedPaciente}
+        paciente={selectedPaciente as any}
         onNuevaConsulta={() => {
           setIsVerModalOpen(false)
           if (selectedPaciente) {
@@ -612,7 +612,7 @@ export default function Pacientes() {
       <EditarPacienteModal
         isOpen={isEditarModalOpen}
         onClose={() => setIsEditarModalOpen(false)}
-        paciente={selectedPaciente}
+        paciente={selectedPaciente as any}
         onSave={async (data: PacienteEditData) => {
           try {
             const pacienteData = {
@@ -635,7 +635,7 @@ export default function Pacientes() {
               medicamentos_actuales: data.medicamentosActuales,
               tipo_sangre: data.tipoSangre,
             }
-            await pacientesApi.update(data.id, pacienteData)
+            await pacientesApi.update(data.id as any, pacienteData)
             await loadPacientes() // Recargar lista
             setIsEditarModalOpen(false)
           } catch (err: any) {

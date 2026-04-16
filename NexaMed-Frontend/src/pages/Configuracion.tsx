@@ -65,13 +65,14 @@ export default function Configuracion() {
       try {
         const response = await usuariosApi.getProfile()
         if (response.success && response.data) {
+          const data = response.data as any
           setPerfil({
-            nombre: response.data.nombre || '',
-            email: response.data.email || '',
-            telefono: response.data.telefono || '',
-            especialidad: response.data.especialidad || '',
-            registro: response.data.registro_medico || '',
-            biografia: response.data.biografia || ''
+            nombre: data.nombre || '',
+            email: data.email || '',
+            telefono: data.telefono || '',
+            especialidad: data.especialidad || '',
+            registro: data.registro_medico || '',
+            biografia: data.biografia || ''
           })
         }
       } catch (err: any) {
