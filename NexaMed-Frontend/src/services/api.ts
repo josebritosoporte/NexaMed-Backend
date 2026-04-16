@@ -3,7 +3,7 @@
  */
 
 // URL del backend - usa variable de entorno o valor por defecto (local)
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost/NexaMed/NexaMed-Backend/api.php'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost/NexaMed/api.php'
 
 // Tipos
 export interface ApiResponse<T = any> {
