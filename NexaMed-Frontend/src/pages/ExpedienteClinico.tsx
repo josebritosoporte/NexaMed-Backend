@@ -39,7 +39,7 @@ const pacienteEjemplo = {
   telefono: '+58 412-1234567',
   email: 'maria.gonzalez@email.com',
   direccion: 'Av. Principal 123, Centro',
-  ciudad: 'Quito',
+  ciudad: 'San Fernando de Apure',
   alergias: ['Penicilina', 'Yodo'],
   antecedentes: ['Hipertensión', 'Diabetes gestacional'],
   ultimaVisita: '2024-01-15',

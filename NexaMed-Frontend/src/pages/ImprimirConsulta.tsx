@@ -17,9 +17,9 @@ export default function ImprimirConsulta() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [consultorio, setConsultorio] = useState<ConsultorioConfig>({
-    nombre: 'Centro Médico Las Américas',
-    direccion: 'Av. Amazonas 1234, Quito',
-    telefono: 'Tel: +593 2-222-1234'
+    nombre: 'Centro Médico Apure',
+    direccion: 'Av. Bolívar Norte, San Fernando de Apure',
+    telefono: 'Tel: +58 247-1234567'
   })
 
   // Cargar configuración del consultorio desde localStorage
@@ -28,9 +28,9 @@ export default function ImprimirConsulta() {
     if (saved) {
       const config = JSON.parse(saved)
       setConsultorio({
-        nombre: config.nombre || 'Centro Médico Las Américas',
-        direccion: config.direccion || 'Av. Amazonas 1234, Quito',
-        telefono: config.telefono ? `Tel: ${config.telefono}` : 'Tel: +593 2-222-1234'
+        nombre: config.nombre || 'Centro Médico Apure',
+        direccion: config.direccion || 'Av. Bolívar Norte, San Fernando de Apure',
+        telefono: config.telefono ? `Tel: ${config.telefono}` : 'Tel: +58 247-1234567'
       })
     }
   }, [])

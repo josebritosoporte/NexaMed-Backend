@@ -90,11 +90,11 @@ export default function Configuracion() {
       return JSON.parse(saved)
     }
     return {
-      nombre: 'Centro Médico Las Américas',
-      rif: 'J-12345678-9',
-      direccion: 'Av. Amazonas 1234, Quito',
-      telefono: '+593 2-222-1234',
-      email: 'contacto@centromedico.com',
+      nombre: 'Centro Médico Apure',
+      rif: 'J-12345678-0',
+      direccion: 'Av. Bolívar Norte, San Fernando de Apure',
+      telefono: '+58 247-1234567',
+      email: 'contacto@centromedicoapure.com',
       horario: 'Lunes a Viernes: 8:00 AM - 5:00 PM'
     }
   })

@@ -43,7 +43,7 @@ const pacienteEjemplo = {
   telefono: '+58 412-1234567',
   email: 'maria.gonzalez@email.com',
   direccion: 'Av. Principal 123, Centro',
-  ciudad: 'Quito',
+  ciudad: 'San Fernando de Apure',
   tipoSangre: 'O+',
   alergias: ['Penicilina', 'Yodo']
 }
@@ -205,9 +205,9 @@ export default function NuevaOrden() {
     nombre: 'Dr. Carlos Rodríguez',
     especialidad: 'Medicina Interna',
     registro: 'MN-12345',
-    consultorio: 'Centro Médico Las Américas',
-    direccion: 'Av. Amazonas 1234, Quito',
-    telefono: '+593 2-222-1234'
+    consultorio: 'Centro Médico Apure',
+    direccion: 'Av. Bolívar Norte, San Fernando de Apure',
+    telefono: '+58 247-1234567'
   }
 
   // Generar PDF / Imprimir

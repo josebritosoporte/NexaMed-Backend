@@ -338,7 +338,7 @@ export function CrearPacienteModal({ isOpen, onClose, onSave }: CrearPacienteMod
                     id="ciudad"
                     value={formData.ciudad}
                     onChange={(e) => handleChange('ciudad', e.target.value)}
-                    placeholder="Ej: Quito"
+                    placeholder="Ej: San Fernando de Apure"
                   />
                 </div>
               </div>

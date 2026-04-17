@@ -378,7 +378,7 @@ export function EditarPacienteModal({ isOpen, onClose, onSave, paciente }: Edita
                     id="edit-ciudad"
                     value={formData.ciudad}
                     onChange={(e) => handleChange('ciudad', e.target.value)}
-                    placeholder="Ej: Quito"
+                    placeholder="Ej: San Fernando de Apure"
                   />
                 </div>
               </div>
