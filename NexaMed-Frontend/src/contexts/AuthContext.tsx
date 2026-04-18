@@ -49,6 +49,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     authApi.logout()
     setUser(null)
+    // Redirigir a la landing page después de cerrar sesión
+    window.location.href = '/'
   }
 
   const hasRole = (roles: string[]): boolean => {

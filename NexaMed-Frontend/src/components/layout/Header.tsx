@@ -24,7 +24,7 @@ export function Header({ title, description }: HeaderProps) {
 
   const handleLogout = () => {
     logout()
-    navigate('/')
+    // La redirección ahora se maneja en AuthContext
   }
 
   // Obtener iniciales del nombre

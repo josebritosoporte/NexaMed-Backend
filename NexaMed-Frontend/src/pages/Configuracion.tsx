@@ -197,7 +197,7 @@ export default function Configuracion() {
   // Cerrar sesión
   const handleLogout = () => {
     logout()
-    navigate('/')
+    // La redirección ahora se maneja en AuthContext
   }
 
   // Obtener iniciales del usuario
