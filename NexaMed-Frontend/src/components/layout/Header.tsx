@@ -90,11 +90,11 @@ export function Header({ title, description }: HeaderProps) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/configuracion')}>
+              <DropdownMenuItem onClick={() => navigate('/app/configuracion')}>
                 <User className="mr-2 h-4 w-4" />
                 Perfil
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/configuracion')}>
+              <DropdownMenuItem onClick={() => navigate('/app/configuracion')}>
                 <Settings className="mr-2 h-4 w-4" />
                 Configuración
               </DropdownMenuItem>

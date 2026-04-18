@@ -337,7 +337,7 @@ export default function NuevaOrden() {
       }
       
       await ordenesApi.create(ordenData)
-      navigate(`/pacientes/${id}/expediente`)
+      navigate(`/app/pacientes/${id}/expediente`)
     } catch (err: any) {
       setError(err.message || 'Error al guardar la orden')
     } finally {
@@ -386,7 +386,7 @@ export default function NuevaOrden() {
           <Button 
             variant="ghost" 
             size="sm" 
-            onClick={() => navigate(`/pacientes/${id}/expediente`)}
+            onClick={() => navigate(`/app/pacientes/${id}/expediente`)}
             className="gap-2"
           >
             <ArrowLeft className="h-4 w-4" />

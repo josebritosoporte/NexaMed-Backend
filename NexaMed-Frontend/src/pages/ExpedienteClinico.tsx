@@ -376,7 +376,7 @@ export default function ExpedienteClinico() {
     return (
       <div className="flex flex-col items-center justify-center h-64">
         <p className="text-red-500 mb-4">{error || 'Paciente no encontrado'}</p>
-        <Button onClick={() => navigate('/pacientes')}>
+        <Button onClick={() => navigate('/app/pacientes')}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Volver a Pacientes
         </Button>
@@ -416,7 +416,7 @@ export default function ExpedienteClinico() {
         <Button 
           variant="ghost" 
           size="sm" 
-          onClick={() => navigate('/pacientes')}
+          onClick={() => navigate('/app/pacientes')}
           className="gap-2"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -460,7 +460,7 @@ export default function ExpedienteClinico() {
 
             {/* Acciones */}
             <div className="flex gap-2 md:ml-auto">
-              <Button variant="outline" onClick={() => navigate('/pacientes', { state: { editarPacienteId: id } })}>
+              <Button variant="outline" onClick={() => navigate('/app/pacientes', { state: { editarPacienteId: id } })}>
                 <User className="mr-2 h-4 w-4" />
                 Editar Datos
               </Button>
@@ -470,7 +470,7 @@ export default function ExpedienteClinico() {
                   // Buscar la última consulta para vincular la orden
                   const ultimaConsulta = consultas.length > 0 ? consultas[0] : null
                   const consultaId = ultimaConsulta ? ultimaConsulta.id : ''
-                  navigate(`/pacientes/${id}/orden${consultaId ? '?consulta=' + consultaId : ''}`)
+                  navigate(`/app/pacientes/${id}/orden${consultaId ? '?consulta=' + consultaId : ''}`)
                 }}
               >
                 <ClipboardList className="mr-2 h-4 w-4" />
@@ -478,7 +478,7 @@ export default function ExpedienteClinico() {
               </Button>
               <Button 
                 className="bg-medical-500 hover:bg-medical-600"
-                onClick={() => navigate(`/pacientes/${id}/consulta`)}
+                onClick={() => navigate(`/app/pacientes/${id}/consulta`)}
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Nueva Consulta

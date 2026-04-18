@@ -285,7 +285,7 @@ export default function Ordenes() {
             className="pl-10"
           />
         </div>
-        <Button onClick={() => navigate('/pacientes')}>
+        <Button onClick={() => navigate('/app/pacientes')}>
           <Plus className="mr-2 h-4 w-4" />
           Nueva Orden
         </Button>

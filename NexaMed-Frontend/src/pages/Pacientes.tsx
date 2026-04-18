@@ -291,7 +291,7 @@ export default function Pacientes() {
   }
 
   const handleVerPaciente = (paciente: Paciente) => {
-    navigate(`/pacientes/${paciente.id}/expediente`)
+    navigate(`/app/pacientes/${paciente.id}/expediente`)
   }
 
   const handleVerDetalle = async (paciente: Paciente) => {
@@ -521,10 +521,10 @@ export default function Pacientes() {
                       <DropdownMenuItem onClick={(e) => { e.stopPropagation(); handleVerDetalle(paciente) }}>
                         Ver detalle rápido
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/pacientes/${paciente.id}/consulta`) }}>
+                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/app/pacientes/${paciente.id}/consulta`) }}>
                         Nueva consulta
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/pacientes/${paciente.id}/orden`) }}>
+                      <DropdownMenuItem onClick={(e) => { e.stopPropagation(); navigate(`/app/pacientes/${paciente.id}/orden`) }}>
                         Nueva orden médica
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={(e) => { e.stopPropagation(); handleEditarPaciente(paciente) }}>
@@ -598,7 +598,7 @@ export default function Pacientes() {
         onNuevaConsulta={() => {
           setIsVerModalOpen(false)
           if (selectedPaciente) {
-            navigate(`/pacientes/${selectedPaciente.id}/consulta`)
+            navigate(`/app/pacientes/${selectedPaciente.id}/consulta`)
           }
         }}
         onEditar={() => {

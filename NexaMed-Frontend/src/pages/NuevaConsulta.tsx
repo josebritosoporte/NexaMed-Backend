@@ -263,7 +263,7 @@ export default function NuevaConsulta() {
       }
       
       await consultasApi.create(consultaData)
-      navigate(`/pacientes/${id}/expediente`)
+      navigate(`/app/pacientes/${id}/expediente`)
     } catch (err: any) {
       setError(err.message || 'Error al guardar consulta')
     } finally {
@@ -318,7 +318,7 @@ export default function NuevaConsulta() {
           <Button 
             variant="ghost" 
             size="sm" 
-            onClick={() => navigate(`/pacientes/${id}/expediente`)}
+            onClick={() => navigate(`/app/pacientes/${id}/expediente`)}
             className="gap-2"
           >
             <ArrowLeft className="h-4 w-4" />

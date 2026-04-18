@@ -123,7 +123,7 @@ export default function Consultas() {
   })
 
   const handleVerConsulta = (consulta: any) => {
-    navigate(`/pacientes/${consulta.paciente_id}/expediente`)
+    navigate(`/app/pacientes/${consulta.paciente_id}/expediente`)
   }
 
   const handleImprimirConsulta = (consulta: any) => {
@@ -149,7 +149,7 @@ export default function Consultas() {
             className="pl-10"
           />
         </div>
-        <Button onClick={() => navigate('/pacientes')}>
+        <Button onClick={() => navigate('/app/pacientes')}>
           <Plus className="mr-2 h-4 w-4" />
           Nueva Consulta
         </Button>
