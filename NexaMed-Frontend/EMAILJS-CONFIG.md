@@ -25,7 +25,6 @@ El formulario de "Solicitar Demo" utiliza **EmailJS** para enviar correos electr
    - `{{nombre}}` - Nombre del solicitante
    - `{{email}}` - Email del solicitante
    - `{{telefono}}` - Teléfono del solicitante
-   - `{{centro}}` - Nombre del centro médico
    - `{{mensaje}}` - Mensaje del solicitante
 
 4. **Guarda el Template ID** (ej: `template_demo_request`)
@@ -57,7 +56,6 @@ Has recibido una nueva solicitud de demo:
 Nombre: {{nombre}}
 Email: {{email}}
 Teléfono: {{telefono}}
-Centro Médico: {{centro}}
 
 Mensaje:
 {{mensaje}}

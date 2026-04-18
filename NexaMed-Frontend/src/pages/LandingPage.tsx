@@ -272,22 +272,12 @@ function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="centro">Nombre del centro médico</Label>
-                  <Input
-                    id="centro"
-                    name="centro"
-                    placeholder="Consultorio Dr. Pérez"
-                    className="h-11"
-                  />
-                </div>
-
-                <div className="space-y-2">
                   <Label htmlFor="mensaje">Mensaje</Label>
                   <Textarea
                     id="mensaje"
                     name="mensaje"
                     placeholder="Cuéntenos sobre sus necesidades..."
-                    rows={3}
+                    rows={2}
                   />
                 </div>
 
