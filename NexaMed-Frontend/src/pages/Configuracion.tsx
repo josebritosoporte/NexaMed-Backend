@@ -197,7 +197,7 @@ export default function Configuracion() {
   // Cerrar sesión
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   // Obtener iniciales del usuario

@@ -24,7 +24,7 @@ export function Header({ title, description }: HeaderProps) {
 
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   // Obtener iniciales del nombre
