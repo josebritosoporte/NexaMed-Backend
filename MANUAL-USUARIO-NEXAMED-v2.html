@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - NexaMed v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #134e4a 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            position: relative;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        h2 {
+            color: #0d9488;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #0d9488;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            color: #0f766e;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            padding-left: 15px;
+            border-left: 4px solid #0d9488;
+        }
+        
+        h4 {
+            color: #374151;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        .screenshot {
+            margin: 30px 0;
+            text-align: center;
+            background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot img:hover {
+            transform: scale(1.02);
+        }
+        
+        .screenshot-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #64748b;
+            font-size: 0.95em;
+        }
+        
+        .note {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 5px solid #0d9488;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+            position: relative;
+        }
+        
+        .note::before {
+            content: "💡";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .warning::before {
+            content: "⚠️";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            border: 2px solid #0d9488;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            color: white;
+            font-weight: 600;
+            padding: 15px 20px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+        
+        tr:hover td {
+            background: #f8fafc;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        ol, ul {
+            margin: 20px 0 20px 35px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        .steps {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #0d9488;
+        }
+        
+        .steps ol {
+            margin-left: 25px;
+        }
+        
+        .steps li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .footer p {
+            text-align: center;
+            margin: 8px 0;
+        }
+        
+        .quick-access {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #0d9488;
+        }
+        
+        code {
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #0d9488;
+            font-weight: 600;
+        }
+        
+        .toc {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #0d9488;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+            columns: 2;
+        }
+        
+        .toc li {
+            padding: 8px 0;
+            break-inside: avoid;
+        }
+        
+        .toc a {
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #0f766e;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(to right, #0d9488, #0f766e, transparent);
+            margin: 50px 0;
+            border-radius: 2px;
+        }
+        
+        .icon {
+            font-size: 1.3em;
+            margin-right: 8px;
+        }
+        
+        @media print {
+            .header { background: #0d9488 !important; -webkit-print-color-adjust: exact; }
+            th { background: #0d9488 !important; -webkit-print-color-adjust: exact; }
+            .screenshot { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Manual de Usuario</h1>
+            <p>Sistema de Gestión Clínica NexaMed</p>
+            <div class="version-badge">Versión 2.0 - Abril 2026</div>
+        </div>
+        
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <h3>📑 Tabla de Contenidos</h3>
+                <ul>
+                    <li><a href="#introduccion">1. Introducción</a></li>
+                    <li><a href="#login">2. Primer Inicio de Sesión</a></li>
+                    <li><a href="#dashboard">3. Dashboard Principal</a></li>
+                    <li><a href="#pacientes">4. Gestión de Pacientes</a></li>
+                    <li><a href="#expediente">5. Expediente Clínico</a></li>
+                    <li><a href="#consultas">6. Consultas Médicas</a></li>
+                    <li><a href="#ordenes">7. Órdenes Médicas</a></li>
+                    <li><a href="#agenda">8. Agenda y Citas</a></li>
+                    <li><a href="#configuracion">9. Configuración</a></li>
+                    <li><a href="#usuarios">10. Gestión de Usuarios</a></li>
+                    <li><a href="#consejos">11. Consejos y Buenas Prácticas</a></li>
+                    <li><a href="#soporte">12. Soporte Técnico</a></li>
+                </ul>
+            </div>
+
+            <!-- Sección 1: Introducción -->
+            <h2 id="introduccion"><span class="icon">🏥</span>1. Introducción</h2>
+            <p><strong>NexaMed</strong> es un sistema de gestión clínica diseñado para facilitar el manejo de pacientes, consultas, citas y órdenes médicas en consultorios y clínicas médicas. Desarrollado específicamente para el sector salud venezolano, ofrece una interfaz intuitiva y completa para la gestión médica diaria.</p>
+            
+            <div class="info-box">
+                <strong>🌐 Acceso al Sistema:</strong><br><br>
+                <strong>URL:</strong> <code>https://nexamed.up.railway.app</code><br>
+                <strong>Credenciales:</strong> Proporcionadas por el administrador del sistema<br>
+                <strong>Navegadores recomendados:</strong> Chrome, Firefox, Edge (últimas versiones)
+            </div>
+
+            <hr>
+
+            <!-- Sección 2: Login -->
+            <h2 id="login"><span class="icon">🔐</span>2. Primer Inicio de Sesión</h2>
+            
+            <h3>2.1 Pantalla de Login</h3>
+            <div class="screenshot">
+                <img src="login.png" alt="Pantalla de Login">
+                <p class="screenshot-caption">Pantalla de inicio de sesión de NexaMed con diseño moderno</p>
+            </div>
+            
+            <p>Al acceder al sistema, verá la pantalla de inicio de sesión con el logo de NexaMed y los campos para ingresar sus credenciales.</p>
+            
+            <div class="steps">
+                <strong>📋 Pasos para iniciar sesión:</strong>
+                <ol>
+                    <li>Ingrese su <strong>correo electrónico</strong> en el campo "Email"</li>
+                    <li>Ingrese su <strong>contraseña</strong> en el campo "Contraseña"</li>
+                    <li>Haga clic en el botón <strong>"Iniciar Sesión"</strong></li>
+                </ol>
+            </div>
+
+            <div class="warning">
+                <strong>Nota de seguridad:</strong> Si olvida su contraseña, contacte al administrador del sistema. Por seguridad, no se permite la recuperación automática de contraseñas.
+            </div>
+
+            <hr>
+
+            <!-- Sección 3: Dashboard -->
+            <h2 id="dashboard"><span class="icon">📊</span>3. Dashboard Principal</h2>
+            
+            <h3>3.1 Vista General</h3>
+            <div class="screenshot">
+                <img src="dashboard.png" alt="Dashboard">
+                <p class="screenshot-caption">Dashboard principal con estadísticas en tiempo real y actividad reciente</p>
+            </div>
+            
+            <p>El Dashboard es la pantalla principal que se muestra después de iniciar sesión. Proporciona un <strong>resumen completo</strong> de la actividad del consultorio en tiempo real.</p>
+            
+            <table>
+                <tr>
+                    <th>Tarjeta</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
+                </tr>
+                <tr>
+                    <td><strong>Total Pacientes</strong></td>
+                    <td>Número total de pacientes registrados</td>
+                    <td>Clic para ver lista completa</td>
+                </tr>
+                <tr>
+                    <td><strong>Consultas Hoy</strong></td>
+                    <td>Consultas programadas para el día actual</td>
+                    <td>Clic para ver detalles</td>
+                </tr>
+                <tr>
+                    <td><strong>Citas Pendientes</strong></td>
+                    <td>Citas que requieren confirmación</td>
+                    <td>Clic para gestionar</td>
+                </tr>
+                <tr>
+                    <td><strong>Órdenes Activas</strong></td>
+                    <td>Órdenes médicas pendientes</td>
+                    <td>Clic para revisar</td>
+                </tr>
+            </table>
+
+            <div class="note">
+                <strong>Navegación:</strong> Use el <strong>menú lateral izquierdo</strong> para acceder a todos los módulos del sistema. El panel superior muestra el usuario actual y acceso rápido a configuración.
+            </div>
+
+            <hr>
+
+            <!-- Sección 4: Pacientes -->
+            <h2 id="pacientes"><span class="icon">👥</span>4. Gestión de Pacientes</h2>
+            
+            <h3>4.1 Lista de Pacientes</h3>
+            <div class="screenshot">
+                <img src="pacientes_lista.png" alt="Lista de Pacientes">
+                <p class="screenshot-caption">Lista completa de pacientes con opciones de búsqueda y filtros</p>
+            </div>
+            
+            <p>La vista de pacientes muestra todos los pacientes registrados en el sistema con información organizada y accesible.</p>
+            
+            <p><strong>Funciones disponibles:</strong></p>
+            <ul>
+                <li><span class="icon">🔍</span><strong>Buscador:</strong> Encuentre pacientes por nombre, apellido o cédula</li>
+                <li><span class="icon">➕</span><strong>Nuevo Paciente:</strong> Botón verde superior para registrar un nuevo paciente</li>
+                <li><span class="icon">👁️</span><strong>Ver:</strong> Icono de ojo para ver detalles completos</li>
+                <li><span class="icon">✏️</span><strong>Editar:</strong> Icono de lápiz para modificar información</li>
+                <li><span class="icon">🗑️</span><strong>Eliminar:</strong> Icono de basura para eliminar (requiere confirmación)</li>
+            </ul>
+
+            <h3>4.2 Crear Nuevo Paciente</h3>
+            <p>El formulario de creación está organizado en <strong>4 pestañas</strong> para facilitar el registro paso a paso:</p>
+            
+            <h4>Pestaña 1: Información Personal</h4>
+            <div class="screenshot">
+                <img src="pacientes_crear_tab1.png" alt="Información Personal">
+                <p class="screenshot-caption">Formulario de información personal del paciente</p>
+            </div>
+            
+            <p><strong>Campos obligatorios:</strong></p>
+            <ul>
+                <li>✅ Nombres</li>
+                <li>✅ Apellidos</li>
+                <li>✅ Cédula de Identidad</li>
+                <li>✅ Fecha de Nacimiento (use el selector de fecha)</li>
+                <li>✅ Sexo (Masculino/Femenino)</li>
+            </ul>
+
+            <h4>Pestaña 2: Contacto</h4>
+            <div class="screenshot">
+                <img src="pacientes_crear_tab2.png" alt="Contacto">
+                <p class="screenshot-caption">Formulario de datos de contacto del paciente</p>
+            </div>
+
+            <div class="note">
+                <strong>Tip:</strong> Mantenga actualizada la información de contacto para poder contactar al paciente cuando sea necesario.
+            </div>
+
+            <h4>Pestaña 3: Información Médica</h4>
+            <div class="screenshot">
+                <img src="pacientes_crear_tab3.png" alt="Información Médica">
+                <p class="screenshot-caption">Formulario de información médica y clínica</p>
+            </div>
+
+            <h4>Pestaña 4: Contacto de Emergencia</h4>
+            <div class="screenshot">
+                <img src="pacientes_crear_tab4.png" alt="Contacto de Emergencia">
+                <p class="screenshot-caption">Formulario de contacto de emergencia</p>
+            </div>
+
+            <div class="steps">
+                <strong>Para guardar el paciente:</strong>
+                <ol>
+                    <li>Complete todos los campos obligatorios en cada pestaña</li>
+                    <li>Use los botones "Anterior" y "Siguiente" para navegar</li>
+                    <li>En la última pestaña, haga clic en <strong>"Guardar Paciente"</strong></li>
+                </ol>
+            </div>
+
+            <h3>4.3 Ver Detalles del Paciente</h3>
+            <div class="screenshot">
+                <img src="pacientes_ver.png" alt="Ver Paciente">
+                <p class="screenshot-caption">Vista detallada de toda la información del paciente</p>
+            </div>
+
+            <h3>4.4 Editar Paciente</h3>
+            <div class="screenshot">
+                <img src="pacientes_editar.png" alt="Editar Paciente">
+                <p class="screenshot-caption">Modal de edición con datos prellenados</p>
+            </div>
+
+            <h3>4.5 Eliminar Paciente</h3>
+            <div class="screenshot">
+                <img src="pacientes_eliminar.png" alt="Eliminar Paciente">
+                <p class="screenshot-caption">Confirmación antes de eliminar un paciente</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Advertencia:</strong> Esta acción es <strong>irreversible</strong>. El paciente y todo su historial serán eliminados permanentemente del sistema.
+            </div>
+
+            <hr>
+
+            <!-- Sección 5: Expediente -->
+            <h2 id="expediente"><span class="icon">📁</span>5. Expediente Clínico</h2>
+            
+            <h3>5.1 Vista del Expediente</h3>
+            <div class="screenshot">
+                <img src="expediente.png" alt="Expediente Clínico">
+                <p class="screenshot-caption">Expediente clínico completo con timeline de consultas</p>
+            </div>
+            
+            <p>El expediente clínico es el <strong>corazón del sistema</strong>. Muestra el historial completo del paciente de forma organizada y cronológica.</p>
+            
+            <p><strong>Estructura del expediente:</strong></p>
+            <ol>
+                <li><strong>Información del Paciente (parte superior):</strong> Nombre, cédula, edad, tipo de sangre y alergias destacadas</li>
+                <li><strong>Acciones Rápidas:</strong> Botones para nueva consulta, nueva orden o editar paciente</li>
+                <li><strong>Timeline de Consultas:</strong> Lista cronológica de todas las consultas con fecha, motivo y médico</li>
+                <li><strong>Órdenes Médicas:</strong> Historial de órdenes generadas con su estado</li>
+            </ol>
+
+            <hr>
+
+            <!-- Sección 6: Consultas -->
+            <h2 id="consultas"><span class="icon">🩺</span>6. Consultas Médicas</h2>
+            
+            <h3>6.1 Nueva Consulta (Formato SOAP)</h3>
+            <div class="screenshot">
+                <img src="consulta_nueva.png" alt="Nueva Consulta">
+                <p class="screenshot-caption">Formulario de consulta médica con formato SOAP completo</p>
+            </div>
+            
+            <p>El sistema utiliza el formato <strong>SOAP</strong> estándar internacional para el registro de consultas médicas.</p>
+            
+            <table>
+                <tr>
+                    <th>Sección</th>
+                    <th>Campo</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>S</strong></td>
+                    <td>Subjetivo</td>
+                    <td>Síntomas que el paciente refiere</td>
+                </tr>
+                <tr>
+                    <td><strong>O</strong></td>
+                    <td>Objetivo</td>
+                    <td>Hallazgos del examen físico</td>
+                </tr>
+                <tr>
+                    <td><strong>A</strong></td>
+                    <td>Análisis</td>
+                    <td>Diagnóstico presuntivo o definitivo</td>
+                </tr>
+                <tr>
+                    <td><strong>P</strong></td>
+                    <td>Plan</td>
+                    <td>Tratamiento, recetas, indicaciones</td>
+                </tr>
+            </table>
+
+            <h3>6.2 Imprimir Consulta</h3>
+            <div class="screenshot">
+                <img src="consulta_imprimir.png" alt="Imprimir Consulta">
+                <p class="screenshot-caption">Vista previa de impresión del informe médico</p>
+            </div>
+            
+            <div class="steps">
+                <strong>Para imprimir:</strong>
+                <ol>
+                    <li>Haga clic en el botón <strong>"Imprimir"</strong> (esquina superior derecha)</li>
+                    <li>Use la función de impresión del navegador (Ctrl+P)</li>
+                    <li>Seleccione "Guardar como PDF" si desea archivo digital</li>
+                </ol>
+            </div>
+
+            <hr>
+
+            <!-- Sección 7: Órdenes -->
+            <h2 id="ordenes"><span class="icon">📋</span>7. Órdenes Médicas</h2>
+            
+            <p>El sistema permite crear tres tipos de órdenes médicas:</p>
+            <ul>
+                <li><span class="icon">🧪</span><strong>Laboratorio:</strong> Exámenes de sangre, orina, química sanguínea, etc.</li>
+                <li><span class="icon">🔬</span><strong>Imagenología:</strong> Rayos X, ultrasonido, tomografías, resonancias</li>
+                <li><span class="icon">👨‍⚕️</span><strong>Interconsulta:</strong> Derivación a otras especialidades médicas</li>
+            </ul>
+
+            <h3>7.1 Crear Nueva Orden</h3>
+            <div class="screenshot">
+                <img src="orden_nueva.png" alt="Nueva Orden">
+                <p class="screenshot-caption">Formulario de creación de orden médica con selección de exámenes</p>
+            </div>
+            
+            <div class="steps">
+                <strong>Pasos para crear una orden:</strong>
+                <ol>
+                    <li><strong>Seleccione el Tipo de Orden:</strong> Laboratorio, Imagenología o Interconsulta</li>
+                    <li><strong>Complete la Información Clínica:</strong> Diagnóstico presuntivo, prioridad (Normal/Urgente), observaciones</li>
+                    <li><strong>Seleccione los Exámenes:</strong> Use el buscador y haga clic para agregar</li>
+                    <li><strong>Revise la Vista Previa:</strong> Verifique diagnóstico y exámenes seleccionados</li>
+                    <li><strong>Guarde la Orden:</strong> Haga clic en "Guardar Orden" o "Imprimir / PDF"</li>
+                </ol>
+            </div>
+
+            <h3>7.2 Imprimir Orden</h3>
+            <div class="screenshot">
+                <img src="orden_imprimir.png" alt="Imprimir Orden">
+                <p class="screenshot-caption">Vista de impresión de orden médica con datos del consultorio</p>
+            </div>
+
+            <hr>
+
+            <!-- Sección 8: Agenda -->
+            <h2 id="agenda"><span class="icon">📅</span>8. Agenda y Citas</h2>
+            
+            <h3>8.1 Vista del Calendario</h3>
+            <div class="screenshot">
+                <img src="agenda_calendario.png" alt="Agenda Calendario">
+                <p class="screenshot-caption">Calendario interactivo con citas programadas</p>
+            </div>
+            
+            <p><strong>Vistas disponibles:</strong></p>
+            <ul>
+                <li><strong>Mes:</strong> Vista general del mes completo</li>
+                <li><strong>Semana:</strong> Detalle de la semana seleccionada</li>
+                <li><strong>Día:</strong> Agenda hora por hora</li>
+            </ul>
+
+            <h3>8.2 Crear Nueva Cita</h3>
+            <div class="screenshot">
+                <img src="agenda_nueva_cita.png" alt="Nueva Cita">
+                <p class="screenshot-caption">Formulario de programación de nueva cita médica</p>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Estado</th>
+                    <th>Color</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>Pendiente</strong></td>
+                    <td>🟡 Amarillo</td>
+                    <td>Cita programada, esperando confirmación</td>
+                </tr>
+                <tr>
+                    <td><strong>Confirmada</strong></td>
+                    <td>🟢 Verde</td>
+                    <td>Paciente confirmó asistencia</td>
+                </tr>
+                <tr>
+                    <td><strong>Completada</strong></td>
+                    <td>🔵 Azul</td>
+                    <td>Consulta realizada exitosamente</td>
+                </tr>
+                <tr>
+                    <td><strong>Cancelada</strong></td>
+                    <td>🔴 Rojo</td>
+                    <td>Cita cancelada</td>
+                </tr>
+            </table>
+
+            <div class="note">
+                El sistema <strong>no permite crear citas en fechas pasadas</strong> para mantener la integridad de la agenda.
+            </div>
+
+            <hr>
+
+            <!-- Sección 9: Configuración -->
+            <h2 id="configuracion"><span class="icon">⚙️</span>9. Configuración</h2>
+            
+            <h3>9.1 Perfil del Usuario</h3>
+            <div class="screenshot">
+                <img src="configuracion_perfil.png" alt="Configuración Perfil">
+                <p class="screenshot-caption">Configuración del perfil de usuario médico</p>
+            </div>
+            
+            <p><strong>Datos que puede modificar:</strong></p>
+            <ul>
+                <li>Nombre completo</li>
+                <li>Correo electrónico</li>
+                <li>Teléfono profesional</li>
+                <li>Especialidad médica</li>
+                <li>Número de registro médico</li>
+                <li>Biografía profesional</li>
+            </ul>
+
+            <h3>9.2 Información del Consultorio</h3>
+            <div class="screenshot">
+                <img src="configuracion_consultorio.png" alt="Configuración Consultorio">
+                <p class="screenshot-caption">Configuración de datos del consultorio para documentos impresos</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> Estos datos aparecerán en todos los documentos impresos (recetas, órdenes, informes). Asegúrese de mantenerlos actualizados.
+            </div>
+
+            <h3>9.3 Cambiar Contraseña</h3>
+            <div class="screenshot">
+                <img src="configuracion_password.png" alt="Cambiar Contraseña">
+                <p class="screenshot-caption">Formulario seguro de cambio de contraseña</p>
+            </div>
+
+            <hr>
+
+            <!-- Sección 10: Usuarios -->
+            <h2 id="usuarios"><span class="icon">👤</span>10. Gestión de Usuarios (Solo Administrador)</h2>
+            
+            <h3>10.1 Lista de Usuarios</h3>
+            <div class="screenshot">
+                <img src="usuarios_lista.png" alt="Usuarios Lista">
+                <p class="screenshot-caption">Panel de administración de usuarios del sistema</p>
+            </div>
+            
+            <p>El administrador tiene acceso completo para gestionar el personal del consultorio.</p>
+
+            <table>
+                <tr>
+                    <th>Rol</th>
+                    <th>Permisos</th>
+                    <th>Uso recomendado</th>
+                </tr>
+                <tr>
+                    <td><strong>Administrador</strong></td>
+                    <td>Acceso total a todas las funciones</td>
+                    <td>Gerentes, dueños del consultorio</td>
+                </tr>
+                <tr>
+                    <td><strong>Doctor</strong></td>
+                    <td>Pacientes, consultas, órdenes, agenda</td>
+                    <td>Médicos tratantes</td>
+                </tr>
+                <tr>
+                    <td><strong>Asistente</strong></td>
+                    <td>Pacientes, agenda, ver consultas (solo lectura)</td>
+                    <td>Recepcionistas, asistentes médicos</td>
+                </tr>
+            </table>
+
+            <hr>
+
+            <!-- Sección 11: Consejos -->
+            <h2 id="consejos"><span class="icon">💡</span>11. Consejos y Buenas Prácticas</h2>
+            
+            <div class="quick-access">
+                <h3>🚀 Navegación Eficiente</h3>
+                <ul>
+                    <li>Use el <strong>buscador global</strong> para encontrar pacientes rápidamente</li>
+                    <li>Los <strong>accesos directos</strong> en el Dashboard llevan a las funciones más usadas</li>
+                    <li><strong>Atajos de teclado:</strong> Esc para cerrar modales</li>
+                </ul>
+            </div>
+
+            <div class="quick-access">
+                <h3>👥 Gestión de Pacientes</h3>
+                <ul>
+                    <li>Mantenga actualizada la <strong>información de contacto</strong></li>
+                    <li>Registre <strong>alergias y antecedentes</strong> de forma completa</li>
+                    <li>Use el <strong>contacto de emergencia</strong> para casos urgentes</li>
+                </ul>
+            </div>
+
+            <div class="quick-access">
+                <h3>🩺 Consultas Médicas</h3>
+                <ul>
+                    <li>Complete todos los campos <strong>SOAP</strong> para un mejor seguimiento</li>
+                    <li>Los <strong>signos vitales</strong> son obligatorios para estadísticas</li>
+                    <li>Use el <strong>plan de tratamiento</strong> detallado para recetas claras</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <!-- Sección 12: Soporte -->
+            <h2 id="soporte"><span class="icon">📞</span>12. Soporte Técnico</h2>
+            
+            <div class="info-box">
+                <h3>📧 Contacto</h3>
+                <p><strong>Email:</strong> soporte@nexamed.com<br>
+                <strong>Teléfono:</strong> +58 247-1234567<br>
+                <strong>WhatsApp:</strong> +58 412-9876543</p>
+                
+                <h4>Horario de Atención</h4>
+                <p><strong>Lunes a Viernes:</strong> 8:00 AM - 5:00 PM<br>
+                <strong>Sábados:</strong> 9:00 AM - 1:00 PM<br>
+                <strong>Emergencias:</strong> 24/7 (solo problemas críticos)</p>
+            </div>
+
+            <h3>Resumen de Accesos Rápidos</h3>
+            <table>
+                <tr>
+                    <th>Función</th>
+                    <th>Ruta de Acceso</th>
+                </tr>
+                <tr>
+                    <td>Dashboard</td>
+                    <td>Menú principal</td>
+                </tr>
+                <tr>
+                    <td>Lista de Pacientes</td>
+                    <td>Menú lateral → Pacientes</td>
+                </tr>
+                <tr>
+                    <td>Nueva Consulta</td>
+                    <td>Expediente → "Nueva Consulta"</td>
+                </tr>
+                <tr>
+                    <td>Nueva Orden</td>
+                    <td>Expediente → "Nueva Orden"</td>
+                </tr>
+                <tr>
+                    <td>Agenda</td>
+                    <td>Menú lateral → Agenda</td>
+                </tr>
+                <tr>
+                    <td>Configuración</td>
+                    <td>Menú lateral → Configuración</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p><strong>Documento versión 2.0</strong></p>
+            <p>Fecha de elaboración: Abril 2026 | Sistema: NexaMed v1.0</p>
+            <p>© 2026 Centro Médico Apure - Todos los derechos reservados</p>
+            <p style="margin-top: 15px; opacity: 0.8;">Desarrollado con ❤️ para el sector salud venezolano</p>
+        </div>
+    </div>
+</body>
+</html>

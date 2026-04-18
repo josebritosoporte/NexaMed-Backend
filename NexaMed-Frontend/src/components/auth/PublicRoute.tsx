@@ -7,7 +7,7 @@ interface PublicRouteProps {
   redirectTo?: string
 }
 
-export function PublicRoute({ children, redirectTo = '/' }: PublicRouteProps) {
+export function PublicRoute({ children, redirectTo = '/app' }: PublicRouteProps) {
   const { isAuthenticated, isLoading } = useAuth()
   const location = useLocation()
 

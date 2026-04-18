@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { PublicRoute } from '@/components/auth/PublicRoute'
 import { Layout } from '@/components/layout/Layout'
+import LandingPage from '@/pages/LandingPage'
 import Login from '@/pages/Login'
 import Dashboard from '@/pages/Dashboard'
 import Pacientes from '@/pages/Pacientes'
@@ -23,6 +24,9 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Routes>
+        {/* Landing Page - Página principal */}
+        <Route path="/" element={<LandingPage />} />
+
         {/* Rutas públicas */}
         <Route 
           path="/login" 
@@ -33,9 +37,9 @@ function App() {
           } 
         />
 
-        {/* Rutas protegidas */}
+        {/* Rutas protegidas - Sistema */}
         <Route 
-          path="/" 
+          path="/app" 
           element={
             <ProtectedRoute>
               <Layout title="Dashboard" description="Vista general de tu consultorio" />
@@ -46,7 +50,7 @@ function App() {
         </Route>
 
         <Route 
-          path="/pacientes" 
+          path="/app/pacientes" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <Layout title="Pacientes" description="Gestión de pacientes y expedientes" />
@@ -58,7 +62,7 @@ function App() {
 
         {/* Expediente Clínico - Ruta especial sin Layout normal */}
         <Route 
-          path="/pacientes/:id/expediente" 
+          path="/app/pacientes/:id/expediente" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <div className="min-h-screen bg-background">
@@ -74,7 +78,7 @@ function App() {
 
         {/* Nueva Consulta */}
         <Route 
-          path="/pacientes/:id/consulta" 
+          path="/app/pacientes/:id/consulta" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor']}>
               <div className="min-h-screen bg-background">
@@ -90,7 +94,7 @@ function App() {
 
         {/* Nueva Orden Médica */}
         <Route 
-          path="/pacientes/:id/orden" 
+          path="/app/pacientes/:id/orden" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <div className="min-h-screen bg-background">
@@ -106,7 +110,7 @@ function App() {
 
         {/* Imprimir Orden Médica */}
         <Route 
-          path="/imprimir/orden/:id" 
+          path="/app/imprimir/orden/:id" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <ImprimirOrden />
@@ -116,7 +120,7 @@ function App() {
 
         {/* Imprimir Consulta */}
         <Route 
-          path="/imprimir/consulta/:id" 
+          path="/app/imprimir/consulta/:id" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor']}>
               <ImprimirConsulta />
@@ -125,7 +129,7 @@ function App() {
         />
 
         <Route 
-          path="/consultas" 
+          path="/app/consultas" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor']}>
               <Layout title="Consultas" description="Registro de atenciones médicas" />
@@ -136,7 +140,7 @@ function App() {
         </Route>
 
         <Route 
-          path="/ordenes" 
+          path="/app/ordenes" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <Layout title="Órdenes Médicas" description="Órdenes de laboratorio e imagenología" />
@@ -147,7 +151,7 @@ function App() {
         </Route>
 
         <Route 
-          path="/agenda" 
+          path="/app/agenda" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor', 'assistant']}>
               <Layout title="Agenda" description="Calendario de citas" />
@@ -158,7 +162,7 @@ function App() {
         </Route>
 
         <Route 
-          path="/configuracion" 
+          path="/app/configuracion" 
           element={
             <ProtectedRoute requiredRoles={['admin', 'doctor']}>
               <Layout title="Configuración" description="Ajustes del sistema" />
@@ -169,7 +173,7 @@ function App() {
         </Route>
 
         <Route 
-          path="/usuarios" 
+          path="/app/usuarios" 
           element={
             <ProtectedRoute requiredRoles={['admin']}>
               <Layout title="Gestión de Usuarios" description="Administra los usuarios del sistema" />

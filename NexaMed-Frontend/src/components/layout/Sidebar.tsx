@@ -21,13 +21,13 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { path: '/pacientes', icon: Users, label: 'Pacientes' },
-  { path: '/consultas', icon: Stethoscope, label: 'Consultas' },
-  { path: '/ordenes', icon: ClipboardList, label: 'Órdenes' },
-  { path: '/agenda', icon: Calendar, label: 'Agenda' },
-  { path: '/configuracion', icon: Settings, label: 'Configuración' },
-  { path: '/usuarios', icon: Shield, label: 'Usuarios', adminOnly: true },
+  { path: '/app', icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/app/pacientes', icon: Users, label: 'Pacientes' },
+  { path: '/app/consultas', icon: Stethoscope, label: 'Consultas' },
+  { path: '/app/ordenes', icon: ClipboardList, label: 'Órdenes' },
+  { path: '/app/agenda', icon: Calendar, label: 'Agenda' },
+  { path: '/app/configuracion', icon: Settings, label: 'Configuración' },
+  { path: '/app/usuarios', icon: Shield, label: 'Usuarios', adminOnly: true },
 ]
 
 export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {

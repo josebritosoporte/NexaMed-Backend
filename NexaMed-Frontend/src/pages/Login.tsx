@@ -30,7 +30,7 @@ export default function Login() {
     
     if (result.success) {
       // Redirigir a la página que intentaba acceder o al dashboard
-      const from = location.state?.from?.pathname || '/'
+      const from = location.state?.from?.pathname || '/app'
       navigate(from, { replace: true })
     } else {
       setError(result.error || 'Error al iniciar sesión')
