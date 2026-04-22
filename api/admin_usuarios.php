@@ -8,6 +8,7 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../utils/response.php';
 require_once __DIR__ . '/../middleware/cors.php';
 require_once __DIR__ . '/../middleware/auth.php';
+require_once __DIR__ . '/../middleware/subscription.php';
 require_once __DIR__ . '/../models/Usuario.php';
 
 // Aplicar CORS
@@ -19,6 +20,9 @@ $user = AuthMiddleware::authenticate();
 $userId = $user['id'];
 $consultorioId = $user['consultorio_id'];
 $userRole = $user['role'];
+
+// Verificar suscripción
+SubscriptionMiddleware::requireAccess($consultorioId);
 
 // Solo administradores pueden gestionar usuarios
 if ($userRole !== 'admin') {
@@ -57,6 +61,8 @@ try {
             
         case 'POST':
             // Crear nuevo usuario
+            SubscriptionMiddleware::requireActive($consultorioId);
+            SubscriptionMiddleware::checkUsuariosLimit($consultorioId);
             $data = json_decode(file_get_contents('php://input'), true);
             
             // Validaciones
@@ -105,6 +111,7 @@ try {
             if (!$id) {
                 Response::error('ID de usuario requerido', 400);
             }
+            SubscriptionMiddleware::requireActive($consultorioId);
             
             $data = json_decode(file_get_contents('php://input'), true);
             
@@ -152,6 +159,7 @@ try {
             if (!$id) {
                 Response::error('ID de usuario requerido', 400);
             }
+            SubscriptionMiddleware::requireActive($consultorioId);
             
             // No permitir eliminar el propio usuario
             if ($id == $userId) {

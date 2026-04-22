@@ -34,5 +34,8 @@ test-*.php
 # Build del frontend
 NexaMed-Frontend/dist/
 
+# Uploads de usuarios (comprobantes, etc.)
+uploads/comprobantes/
+
 # Capturas de pantalla
 *.png

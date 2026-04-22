@@ -66,12 +66,35 @@ switch ($endpoint) {
         $_GET['id'] = $id;
         require_once __DIR__ . '/api/admin_usuarios.php';
         break;
+
+    case 'planes':
+        $_GET['id'] = $id;
+        $_GET['action'] = $action;
+        require_once __DIR__ . '/api/planes.php';
+        break;
+
+    case 'suscripciones':
+        $_GET['action'] = $action;
+        require_once __DIR__ . '/api/suscripciones.php';
+        break;
+
+    case 'superadmin':
+        $_GET['action'] = $action;
+        $_GET['id'] = $id;
+        require_once __DIR__ . '/api/superadmin.php';
+        break;
+
+    case 'notificaciones':
+        $_GET['action'] = $action;
+        $_GET['id'] = $id;
+        require_once __DIR__ . '/api/notificaciones.php';
+        break;
         
     default:
         // Endpoint de prueba/health check
         if (empty($endpoint)) {
             Response::success([
-                'message' => 'DaliaMed API v1.0',
+                'message' => 'DaliaMed API v1.1',
                 'status' => 'running',
                 'modo' => 'Query String (sin mod_rewrite)',
                 'timestamp' => date('Y-m-d H:i:s'),
@@ -83,7 +106,10 @@ switch ($endpoint) {
                     'citas' => 'api.php?endpoint=citas (GET, POST)',
                     'dashboard' => 'api.php?endpoint=dashboard&action=stats (GET)',
                     'usuarios' => 'api.php?endpoint=usuarios&action=profile (GET, PUT)',
-                    'admin_usuarios' => 'api.php?endpoint=admin_usuarios (GET, POST, PUT, DELETE) - Solo admin'
+                    'admin_usuarios' => 'api.php?endpoint=admin_usuarios (GET, POST, PUT, DELETE) - Solo admin',
+                    'planes' => 'api.php?endpoint=planes (GET) - Público',
+                    'suscripciones' => 'api.php?endpoint=suscripciones&action=mi-suscripcion (GET, POST)',
+                    'superadmin' => 'api.php?endpoint=superadmin&action=login (POST) - Panel SuperAdmin'
                 ]
             ]);
         }

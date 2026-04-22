@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Sidebar } from './Sidebar'
 import { Header } from './Header'
+import { SubscriptionBanner } from '@/components/subscription/SubscriptionBanner'
 import { cn } from '@/lib/utils'
 
 interface LayoutProps {
@@ -25,6 +26,7 @@ export function Layout({ title, description }: LayoutProps) {
         )}
       >
         <Header title={title} description={description} />
+        <SubscriptionBanner />
         <main className="p-6">
           <Outlet />
         </main>

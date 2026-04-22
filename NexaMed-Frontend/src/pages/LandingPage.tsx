@@ -371,9 +371,9 @@ export default function LandingPage() {
             </Button>
             <Button 
               className="rounded-full px-5 bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-700 hover:to-violet-700"
-              onClick={() => setIsDemoModalOpen(true)}
+              onClick={() => navigate('/register')}
             >
-              Solicitar demo
+              Comenzar gratis
             </Button>
           </div>
         </div>
@@ -399,18 +399,18 @@ export default function LandingPage() {
                 <Button 
                   size="lg" 
                   className="rounded-full px-7 text-base bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-700 hover:to-violet-700"
-                  onClick={() => setIsDemoModalOpen(true)}
+                  onClick={() => navigate('/register')}
                 >
-                  Solicitar demo
+                  Comenzar gratis
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
                   className="rounded-full px-7 text-base"
-                  onClick={() => scrollToSection('funciones')}
+                  onClick={() => setIsDemoModalOpen(true)}
                 >
-                  Ver funcionalidades
+                  Solicitar demo
                 </Button>
               </div>
 
@@ -735,9 +735,9 @@ export default function LandingPage() {
                     size="lg" 
                     variant="secondary" 
                     className="rounded-full px-8 text-base text-slate-900"
-                    onClick={() => setIsDemoModalOpen(true)}
+                    onClick={() => navigate('/register')}
                   >
-                    Solicitar demo
+                    Comenzar gratis — 14 días
                   </Button>
                   <Button 
                     size="lg" 

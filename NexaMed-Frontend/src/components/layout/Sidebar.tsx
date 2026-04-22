@@ -11,7 +11,8 @@ import {
   ChevronRight,
   HeartPulse,
   Shield,
-  Flower2
+  Flower2,
+  CreditCard
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
@@ -28,6 +29,7 @@ const menuItems = [
   { path: '/app/ordenes', icon: ClipboardList, label: 'Órdenes' },
   { path: '/app/agenda', icon: Calendar, label: 'Agenda' },
   { path: '/app/configuracion', icon: Settings, label: 'Configuración' },
+  { path: '/app/suscripcion', icon: CreditCard, label: 'Mi Suscripción' },
   { path: '/app/usuarios', icon: Shield, label: 'Usuarios', adminOnly: true },
 ]
 

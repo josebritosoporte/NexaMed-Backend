@@ -8,6 +8,7 @@ require_once __DIR__ . '/../models/Paciente.php';
 require_once __DIR__ . '/../utils/response.php';
 require_once __DIR__ . '/../middleware/cors.php';
 require_once __DIR__ . '/../middleware/auth.php';
+require_once __DIR__ . '/../middleware/subscription.php';
 
 // Aplicar CORS
 $cors = new CorsMiddleware();
@@ -16,6 +17,9 @@ $cors->handle();
 // Verificar autenticación
 $user = AuthMiddleware::authenticate();
 $consultorioId = $user['consultorio_id'];
+
+// Verificar suscripción
+SubscriptionMiddleware::requireAccess($consultorioId);
 
 // Obtener método y parámetros
 $method = $_SERVER['REQUEST_METHOD'];
@@ -47,6 +51,8 @@ switch ($method) {
         break;
         
     case 'POST':
+        SubscriptionMiddleware::requireActive($consultorioId);
+        SubscriptionMiddleware::checkPacientesLimit($consultorioId);
         handleCreate($input, $pacienteModel, $consultorioId);
         break;
         
@@ -54,6 +60,7 @@ switch ($method) {
         if (!$id) {
             Response::error('ID de paciente requerido', 400);
         }
+        SubscriptionMiddleware::requireActive($consultorioId);
         handleUpdate($id, $input, $pacienteModel, $consultorioId);
         break;
         
@@ -61,6 +68,7 @@ switch ($method) {
         if (!$id) {
             Response::error('ID de paciente requerido', 400);
         }
+        SubscriptionMiddleware::requireActive($consultorioId);
         handleDelete($id, $pacienteModel, $consultorioId);
         break;
         

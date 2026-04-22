@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DaliaMed — Reglas de Negocio: Sistema de Suscripciones</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Paleta DaliaMed */
+      --dalia-primary: #2A6B6B;
+      --dalia-primary-light: #3A8B8B;
+      --dalia-primary-dark: #1A4B4B;
+      --dalia-secondary: #D4A373;
+      --dalia-secondary-light: #E4C3A3;
+      --dalia-accent: #E76F51;
+      --dalia-dark: #1B2A2A;
+      --dalia-gray: #6B7B7B;
+      --dalia-gray-light: #B8C4C4;
+      --dalia-surface: #FAF9F7;
+      --dalia-success: #2D8B55;
+      --dalia-error: #C0392B;
+      --dalia-warning: #E67E22;
+
+      /* Tipografía */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+
+      /* Tamaños */
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+
+      /* Espaciado */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+
+      /* Radios y sombras */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --shadow-sm: 0 1px 2px rgba(27,42,42,0.06);
+      --shadow-md: 0 4px 6px rgba(27,42,42,0.08);
+      --shadow-lg: 0 10px 15px rgba(27,42,42,0.1);
+      --shadow-xl: 0 20px 25px rgba(27,42,42,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.7;
+      color: var(--dalia-dark);
+      background: var(--dalia-surface);
+    }
+
+    /* Header */
+    .doc-header {
+      background: linear-gradient(135deg, var(--dalia-primary-dark) 0%, var(--dalia-primary) 60%, var(--dalia-primary-light) 100%);
+      color: white;
+      padding: var(--space-16) var(--space-8);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::after {
+      content: '❁';
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 8rem;
+      opacity: 0.08;
+    }
+    .doc-header h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .doc-header .subtitle {
+      font-size: var(--text-lg);
+      opacity: 0.85;
+      font-weight: 300;
+    }
+    .doc-header .version {
+      display: inline-block;
+      margin-top: var(--space-4);
+      background: rgba(255,255,255,0.15);
+      padding: var(--space-1) var(--space-4);
+      border-radius: 999px;
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6);
+    }
+
+    /* TOC */
+    .toc {
+      background: white;
+      border: 1px solid var(--dalia-gray-light);
+      border-left: 4px solid var(--dalia-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-10);
+      box-shadow: var(--shadow-sm);
+    }
+    .toc h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: var(--dalia-primary);
+      margin-bottom: var(--space-4);
+    }
+    .toc ol {
+      padding-left: var(--space-6);
+    }
+    .toc li {
+      margin-bottom: var(--space-2);
+    }
+    .toc a {
+      color: var(--dalia-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .toc a:hover {
+      color: var(--dalia-accent);
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: var(--space-12);
+    }
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--dalia-primary-dark);
+      border-bottom: 2px solid var(--dalia-secondary);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+    .section h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: var(--dalia-primary);
+      margin-bottom: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    .section p {
+      margin-bottom: var(--space-4);
+      color: var(--dalia-dark);
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-4);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(42,107,107,0.08);
+    }
+    .card.highlight {
+      border-left: 4px solid var(--dalia-accent);
+    }
+    .card.success {
+      border-left: 4px solid var(--dalia-success);
+    }
+    .card.warning {
+      border-left: 4px solid var(--dalia-warning);
+    }
+
+    /* Plan cards */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+    @media (max-width: 768px) {
+      .plans-grid { grid-template-columns: 1fr; }
+    }
+    .plan-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.2s;
+    }
+    .plan-card:hover { transform: translateY(-4px); }
+    .plan-card.featured {
+      border: 2px solid var(--dalia-accent);
+    }
+    .plan-header {
+      padding: var(--space-6) var(--space-5);
+      text-align: center;
+    }
+    .plan-card:nth-child(1) .plan-header { background: var(--dalia-primary-light); color: white; }
+    .plan-card:nth-child(2) .plan-header { background: var(--dalia-primary); color: white; }
+    .plan-card:nth-child(3) .plan-header { background: var(--dalia-primary-dark); color: white; }
+    .plan-header h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-1);
+      color: white;
+    }
+    .plan-header .price {
+      font-size: var(--text-3xl);
+      font-weight: 700;
+    }
+    .plan-header .price span { font-size: var(--text-sm); font-weight: 400; opacity: 0.8; }
+    .plan-body {
+      padding: var(--space-5);
+    }
+    .plan-body ul {
+      list-style: none;
+      padding: 0;
+    }
+    .plan-body li {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid rgba(42,107,107,0.06);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .plan-body li:last-child { border-bottom: none; }
+    .check { color: var(--dalia-success); font-weight: 700; }
+    .cross { color: var(--dalia-gray-light); }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin-bottom: var(--space-6);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    thead th {
+      background: var(--dalia-primary);
+      color: white;
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      font-weight: 600;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    tbody td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid rgba(42,107,107,0.06);
+    }
+    tbody tr:hover { background: rgba(42,107,107,0.02); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: var(--space-1) var(--space-3);
+      border-radius: 999px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge.trial { background: #E8F4FD; color: #1976D2; }
+    .badge.active { background: #E8F5E9; color: var(--dalia-success); }
+    .badge.grace { background: #FFF3E0; color: var(--dalia-warning); }
+    .badge.expired { background: #FFEBEE; color: var(--dalia-error); }
+    .badge.suspended { background: #F3E5F5; color: #7B1FA2; }
+    .badge.cancelled { background: #ECEFF1; color: #455A64; }
+
+    /* Flow diagram (CSS) */
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: var(--space-6) 0;
+    }
+    .flow-step {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-align: center;
+    }
+    .flow-arrow {
+      color: var(--dalia-gray);
+      font-size: var(--text-xl);
+    }
+
+    /* Lists */
+    .rules-list {
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+    .rules-list li {
+      margin-bottom: var(--space-2);
+      padding-left: var(--space-2);
+    }
+
+    /* Code/config blocks */
+    .code-block {
+      background: var(--dalia-dark);
+      color: #B8D4D4;
+      padding: var(--space-5);
+      border-radius: var(--radius-md);
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: var(--text-sm);
+      overflow-x: auto;
+      margin-bottom: var(--space-4);
+      line-height: 1.8;
+    }
+    .code-block .keyword { color: var(--dalia-accent); }
+    .code-block .string { color: var(--dalia-secondary); }
+    .code-block .comment { color: var(--dalia-gray); font-style: italic; }
+
+    /* Info boxes */
+    .info-box {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-4);
+      align-items: flex-start;
+    }
+    .info-box.note { background: #E8F4FD; border-left: 4px solid #1976D2; }
+    .info-box.important { background: #FFF3E0; border-left: 4px solid var(--dalia-warning); }
+    .info-box.critical { background: #FFEBEE; border-left: 4px solid var(--dalia-error); }
+    .info-box .icon { font-size: var(--text-xl); flex-shrink: 0; }
+    .info-box .content { font-size: var(--text-sm); }
+    .info-box .content strong { display: block; margin-bottom: var(--space-1); }
+
+    /* Footer */
+    .doc-footer {
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--dalia-gray);
+      font-size: var(--text-sm);
+      border-top: 1px solid var(--dalia-gray-light);
+      margin-top: var(--space-10);
+    }
+    .doc-footer .brand {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      color: var(--dalia-primary);
+      font-weight: 700;
+    }
+
+    @media print {
+      body { font-size: 11pt; }
+      .doc-header { padding: 2rem; }
+      .plan-card:hover { transform: none; }
+      .container { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <h1>Reglas de Negocio</h1>
+    <div class="subtitle">Sistema de Suscripciones — DaliaMed</div>
+    <div class="version">v1.1.0 · Abril 2026</div>
+  </header>
+
+  <div class="container">
+
+    <!-- ÍNDICE -->
+    <nav class="toc">
+      <h2>Índice de Contenidos</h2>
+      <ol>
+        <li><a href="#planes">Catálogo de Planes</a></li>
+        <li><a href="#precios">Precios y Periodos de Facturación</a></li>
+        <li><a href="#estados">Ciclo de Vida de la Suscripción</a></li>
+        <li><a href="#permisos">Matriz de Permisos por Estado</a></li>
+        <li><a href="#limites">Límites y Cuotas por Plan</a></li>
+        <li><a href="#features">Features por Plan</a></li>
+        <li><a href="#pagos">Sistema de Pagos</a></li>
+        <li><a href="#tasa">Tasa de Cambio USD/Bs</a></li>
+        <li><a href="#superadmin">Panel SuperAdmin</a></li>
+        <li><a href="#trial">Periodo de Prueba (Trial)</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. PLANES -->
+    <section class="section" id="planes">
+      <h2>1. Catálogo de Planes</h2>
+      <p>DaliaMed ofrece tres niveles de suscripción diseñados para escalar desde el médico independiente hasta el consultorio con equipo:</p>
+
+      <div class="plans-grid">
+        <!-- Esencial -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3>Esencial</h3>
+            <div class="price">$20 <span>/mes</span></div>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><span class="check">✓</span> 1 usuario</li>
+              <li><span class="check">✓</span> 50 pacientes</li>
+              <li><span class="check">✓</span> 2 GB almacenamiento</li>
+              <li><span class="check">✓</span> Expediente clínico</li>
+              <li><span class="check">✓</span> Notas SOAP</li>
+              <li><span class="check">✓</span> Órdenes médicas</li>
+              <li><span class="check">✓</span> Agenda básica</li>
+              <li><span class="check">✓</span> Dashboard</li>
+              <li><span class="cross">✗</span> Sin asistente</li>
+              <li><span class="cross">✗</span> Sin adjuntos</li>
+              <li><span class="cross">✗</span> Sin branding</li>
+              <li><span class="cross">✗</span> Sin exportación</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Profesional -->
+        <div class="plan-card featured">
+          <div class="plan-header">
+            <h3>Profesional</h3>
+            <div class="price">$35 <span>/mes</span></div>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><span class="check">✓</span> 2 usuarios</li>
+              <li><span class="check">✓</span> 100 pacientes</li>
+              <li><span class="check">✓</span> 10 GB almacenamiento</li>
+              <li><span class="check">✓</span> Todo lo de Esencial</li>
+              <li><span class="check">✓</span> 1 asistente</li>
+              <li><span class="check">✓</span> Adjuntos clínicos</li>
+              <li><span class="check">✓</span> Branding básico</li>
+              <li><span class="check">✓</span> Exportación individual</li>
+              <li><span class="check">✓</span> Plantillas SOAP</li>
+              <li><span class="check">✓</span> Permisos básicos</li>
+              <li><span class="cross">✗</span> Sin agenda compartida</li>
+              <li><span class="cross">✗</span> Sin reportes avanzados</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Consultorio -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3>Consultorio</h3>
+            <div class="price">$50 <span>/mes</span></div>
+          </div>
+          <div class="plan-body">
+            <ul>
+              <li><span class="check">✓</span> 5 usuarios</li>
+              <li><span class="check">✓</span> 1,000 pacientes</li>
+              <li><span class="check">✓</span> 50 GB almacenamiento</li>
+              <li><span class="check">✓</span> Todo lo de Profesional</li>
+              <li><span class="check">✓</span> Agenda compartida</li>
+              <li><span class="check">✓</span> Permisos avanzados</li>
+              <li><span class="check">✓</span> Reportes avanzados</li>
+              <li><span class="check">✓</span> Exportación masiva</li>
+              <li><span class="check">✓</span> Branding completo</li>
+              <li><span class="check">✓</span> Plantillas SOAP</li>
+              <li><span class="check">✓</span> Respaldo manual</li>
+              <li><span class="check">✓</span> Soporte prioritario</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PRECIOS -->
+    <section class="section" id="precios">
+      <h2>2. Precios y Periodos de Facturación</h2>
+      <p>Cada plan ofrece descuentos progresivos por compromiso a largo plazo. Todos los precios están en <strong>USD</strong> con equivalencia en Bs según tasa BCV.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Mensual</th>
+              <th>Trimestral</th>
+              <th>Semestral</th>
+              <th>Anual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Esencial</strong></td>
+              <td>$20.00</td>
+              <td>$45.00 <small style="color:var(--dalia-success)">(-25%)</small></td>
+              <td>$60.00 <small style="color:var(--dalia-success)">(-50%)</small></td>
+              <td>$80.00 <small style="color:var(--dalia-success)">(-67%)</small></td>
+            </tr>
+            <tr>
+              <td><strong>Profesional</strong></td>
+              <td>$35.00</td>
+              <td>$80.00 <small style="color:var(--dalia-success)">(-24%)</small></td>
+              <td>$100.00 <small style="color:var(--dalia-success)">(-52%)</small></td>
+              <td>$130.00 <small style="color:var(--dalia-success)">(-69%)</small></td>
+            </tr>
+            <tr>
+              <td><strong>Consultorio</strong></td>
+              <td>$50.00</td>
+              <td>$110.00 <small style="color:var(--dalia-success)">(-27%)</small></td>
+              <td>$150.00 <small style="color:var(--dalia-success)">(-50%)</small></td>
+              <td>$180.00 <small style="color:var(--dalia-success)">(-70%)</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box note">
+        <div class="icon">💡</div>
+        <div class="content">
+          <strong>Duración de periodos</strong>
+          Mensual = 30 días · Trimestral = 90 días · Semestral = 180 días · Anual = 365 días. La fecha de vencimiento se calcula automáticamente a partir de la fecha de inicio.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ESTADOS -->
+    <section class="section" id="estados">
+      <h2>3. Ciclo de Vida de la Suscripción</h2>
+      <p>Cada suscripción transita por los siguientes estados:</p>
+
+      <div class="flow">
+        <div class="flow-step badge trial">Trial</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge active">Active</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge grace">Grace Period</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge expired">Expired</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge suspended">Suspended</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge cancelled">Cancelled</div>
+      </div>
+
+      <div class="card">
+        <h3>Descripción de Estados</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Estado</th><th>Descripción</th><th>Duración</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="badge trial">Trial</span></td><td>Periodo de prueba gratuita con acceso completo al plan asignado.</td><td>14 días</td></tr>
+              <tr><td><span class="badge active">Active</span></td><td>Suscripción pagada y vigente. Acceso total según plan contratado.</td><td>Según periodo</td></tr>
+              <tr><td><span class="badge grace">Grace Period</span></td><td>Periodo de gracia posterior al vencimiento. Acceso completo para permitir renovación.</td><td>3–7 días</td></tr>
+              <tr><td><span class="badge expired">Expired</span></td><td>La suscripción venció y no se renovó. Solo lectura de datos existentes.</td><td>Indefinido</td></tr>
+              <tr><td><span class="badge suspended">Suspended</span></td><td>Suspensión administrativa. Solo lectura. Requiere acción del SuperAdmin.</td><td>Hasta reactivación</td></tr>
+              <tr><td><span class="badge cancelled">Cancelled</span></td><td>Cuenta cancelada. Acceso totalmente bloqueado al sistema.</td><td>Permanente</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PERMISOS POR ESTADO -->
+    <section class="section" id="permisos">
+      <h2>4. Matriz de Permisos por Estado</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Operación</th>
+              <th><span class="badge trial">Trial</span></th>
+              <th><span class="badge active">Active</span></th>
+              <th><span class="badge grace">Grace</span></th>
+              <th><span class="badge expired">Expired</span></th>
+              <th><span class="badge suspended">Suspended</span></th>
+              <th><span class="badge cancelled">Cancelled</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Ver datos existentes</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>🚫</td></tr>
+            <tr><td>Crear pacientes</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Crear consultas</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Crear órdenes</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Gestionar agenda</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Imprimir / Exportar</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Editar configuración</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>🚫</td></tr>
+            <tr><td>Iniciar sesión</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>🚫</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box important">
+        <div class="icon">⚠️</div>
+        <div class="content">
+          <strong>Regla de acceso: requireActive vs requireAccess</strong>
+          Las operaciones de <strong>escritura</strong> pasan por <code>requireActive()</code> (solo trial, active, grace_period).
+          Las operaciones de <strong>lectura</strong> pasan por <code>requireAccess()</code> (todo excepto cancelled).
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LÍMITES -->
+    <section class="section" id="limites">
+      <h2>5. Límites y Cuotas por Plan</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Recurso</th><th>Esencial</th><th>Profesional</th><th>Consultorio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Usuarios activos</strong></td><td>1</td><td>2</td><td>5</td></tr>
+            <tr><td><strong>Pacientes activos</strong></td><td>50</td><td>100</td><td>1,000</td></tr>
+            <tr><td><strong>Almacenamiento</strong></td><td>2 GB</td><td>10 GB</td><td>50 GB</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card highlight">
+        <h3>Comportamiento al alcanzar límites</h3>
+        <ul class="rules-list">
+          <li>Al intentar crear un paciente/usuario cuando se alcanzó el máximo, el sistema retorna error <strong>HTTP 403</strong> con un mensaje descriptivo indicando el plan actual y sugiriendo actualización.</li>
+          <li>Los conteos se basan en registros <strong>activos</strong> (<code>activo = TRUE</code>). Pacientes/usuarios desactivados no cuentan contra la cuota.</li>
+          <li>El middleware <code>checkPacientesLimit()</code> y <code>checkUsuariosLimit()</code> se ejecutan antes de cada operación de creación.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. FEATURES -->
+    <section class="section" id="features">
+      <h2>6. Features por Plan</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Feature</th><th>Esencial</th><th>Profesional</th><th>Consultorio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Asistente</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Adjuntos clínicos</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Branding</td><td>No</td><td>Básico</td><td>Completo</td></tr>
+            <tr><td>Exportación</td><td>No</td><td>Individual</td><td>Masiva</td></tr>
+            <tr><td>Agenda compartida</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Permisos por rol</td><td>No</td><td>Básico</td><td>Avanzado</td></tr>
+            <tr><td>Reportes avanzados</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Plantillas SOAP</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Respaldo manual</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box note">
+        <div class="icon">🔑</div>
+        <div class="content">
+          <strong>Verificación de features</strong>
+          El middleware <code>requireFeature($consultorioId, 'nombre_feature')</code> valida tanto valores booleanos (<code>TRUE/FALSE</code>) como ENUMs (<code>'no'/'basico'/'completo'</code>). Si la feature no existe en el plan, se permite por defecto.
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. PAGOS -->
+    <section class="section" id="pagos">
+      <h2>7. Sistema de Pagos</h2>
+
+      <h3>7.1 Métodos de pago aceptados</h3>
+      <div class="card">
+        <ul class="rules-list">
+          <li><strong>Transferencia bancaria</strong> (Venezuela e internacional)</li>
+          <li><strong>Zelle</strong></li>
+          <li><strong>PayPal</strong></li>
+          <li><strong>Pago Móvil</strong> (Venezuela)</li>
+          <li><strong>Efectivo</strong></li>
+          <li><strong>Otro</strong> (requiere nota descriptiva)</li>
+        </ul>
+      </div>
+
+      <h3>7.2 Flujo de aprobación de pagos</h3>
+      <div class="flow">
+        <div class="flow-step" style="background:#E8F4FD;color:#1976D2;border-radius:var(--radius-md);padding:var(--space-2) var(--space-4);">Cliente reporta pago</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge grace">Pendiente</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step badge active">Aprobado</div>
+        <div class="flow-arrow" style="margin-left:var(--space-4)">o</div>
+        <div class="flow-step badge expired">Rechazado</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Campo</th><th>Descripción</th><th>Requerido</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>monto</code></td><td>Monto pagado en USD</td><td>Sí</td></tr>
+            <tr><td><code>moneda</code></td><td>Moneda del pago (default: USD)</td><td>Sí</td></tr>
+            <tr><td><code>tasa_bs_momento</code></td><td>Tasa BCV al momento del pago</td><td>Opcional</td></tr>
+            <tr><td><code>monto_bs</code></td><td>Equivalente en bolívares</td><td>Opcional</td></tr>
+            <tr><td><code>metodo_pago</code></td><td>Método utilizado</td><td>Sí</td></tr>
+            <tr><td><code>referencia</code></td><td>Número de referencia/comprobante</td><td>Opcional</td></tr>
+            <tr><td><code>fecha_pago</code></td><td>Fecha efectiva del pago</td><td>Sí</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box critical">
+        <div class="icon">🔒</div>
+        <div class="content">
+          <strong>Regla de seguridad</strong>
+          Solo un <strong>SuperAdmin</strong> puede aprobar o rechazar pagos. Al aprobar, se registra <code>aprobado_por</code> y <code>aprobado_at</code> automáticamente. Un pago aprobado activa/renueva la suscripción correspondiente.
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. TASA DE CAMBIO -->
+    <section class="section" id="tasa">
+      <h2>8. Tasa de Cambio USD/Bs</h2>
+
+      <div class="card success">
+        <h3>Reglas de gestión</h3>
+        <ul class="rules-list">
+          <li>La tasa se almacena con <strong>4 decimales</strong> de precisión (<code>DECIMAL(12,4)</code>).</li>
+          <li>Solo puede existir <strong>una tasa por fecha</strong> (campo <code>fecha</code> es <code>UNIQUE</code>).</li>
+          <li>Se registra quién actualizó la tasa (<code>registrada_por</code>).</li>
+          <li>La API pública <code>GET /planes&action=tasa</code> devuelve la tasa más reciente.</li>
+          <li>Todos los precios de planes se muestran con su <strong>equivalente en Bs</strong> calculado en tiempo real: <code>precio × tasa_bs</code>.</li>
+          <li>Al registrar un pago, se captura la tasa vigente en ese momento (<code>tasa_bs_momento</code>) para auditoría histórica.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. SUPERADMIN -->
+    <section class="section" id="superadmin">
+      <h2>9. Panel SuperAdmin</h2>
+      <p>Los SuperAdmins son administradores globales de la plataforma DaliaMed, independientes de cualquier consultorio.</p>
+
+      <div class="card">
+        <h3>Capacidades del SuperAdmin</h3>
+        <ul class="rules-list">
+          <li>Gestionar <strong>todas las suscripciones</strong> (activar, suspender, cancelar, cambiar plan)</li>
+          <li>Aprobar o rechazar <strong>pagos</strong> de cualquier consultorio</li>
+          <li>Actualizar la <strong>tasa de cambio</strong> USD/Bs</li>
+          <li>Gestionar el <strong>catálogo de planes</strong> y precios</li>
+          <li>Ver métricas globales de la plataforma</li>
+          <li>Crear otros SuperAdmins</li>
+        </ul>
+      </div>
+
+      <div class="info-box important">
+        <div class="icon">🛡️</div>
+        <div class="content">
+          <strong>Aislamiento de seguridad</strong>
+          Los SuperAdmins tienen su propia tabla (<code>superadmins</code>), separada de <code>usuarios</code>. Usan autenticación independiente y no pertenecen a ningún consultorio. Sus contraseñas se almacenan con <code>bcrypt</code> ($2y$10$).
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TRIAL -->
+    <section class="section" id="trial">
+      <h2>10. Periodo de Prueba (Trial)</h2>
+
+      <div class="card highlight">
+        <h3>Reglas del Trial</h3>
+        <ul class="rules-list">
+          <li><strong>Duración:</strong> 14 días desde el registro del consultorio.</li>
+          <li><strong>Plan asignado:</strong> Profesional (acceso a features de nivel medio para evaluación completa).</li>
+          <li><strong>Acceso:</strong> Completo según el plan asignado (escritura + lectura).</li>
+          <li><strong>Transición:</strong> Al vencer, el estado cambia automáticamente a <code>expired</code> mediante <code>checkExpired()</code>.</li>
+          <li><strong>Sin tarjeta:</strong> No se requiere método de pago para iniciar el trial.</li>
+          <li><strong>Único:</strong> Un consultorio solo puede tener un trial. Al expirar, debe contratar un plan pago.</li>
+        </ul>
+      </div>
+
+      <div class="info-box note">
+        <div class="icon">⏱️</div>
+        <div class="content">
+          <strong>Verificación automática de vencimiento</strong>
+          El middleware ejecuta <code>checkExpired()</code> en cada request, actualizando automáticamente el estado de suscripciones vencidas. La propiedad <code>dias_restantes</code> se calcula en tiempo real como <code>max(0, (fecha_fin - now) / 86400)</code>.
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    <div class="brand">DaliaMed ❁</div>
+    <p>Sistema de Gestión Clínica · Documento de Reglas de Negocio</p>
+    <p>Generado: Abril 2026 · Versión del sistema: v1.1.0</p>
+  </footer>
+
+</body>
+</html>

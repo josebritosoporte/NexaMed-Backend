@@ -7,6 +7,7 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../utils/response.php';
 require_once __DIR__ . '/../middleware/cors.php';
 require_once __DIR__ . '/../middleware/auth.php';
+require_once __DIR__ . '/../middleware/subscription.php';
 
 // Aplicar CORS
 $cors = new CorsMiddleware();
@@ -15,6 +16,9 @@ $cors->handle();
 // Verificar autenticación
 $user = AuthMiddleware::authenticate();
 $consultorioId = $user['consultorio_id'];
+
+// Verificar suscripción (lectura permitida siempre excepto cancelled)
+SubscriptionMiddleware::requireAccess($consultorioId);
 
 // Obtener método
 $method = $_SERVER['REQUEST_METHOD'];

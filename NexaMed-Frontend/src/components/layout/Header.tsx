@@ -1,4 +1,5 @@
-import { Bell, Search, User, LogOut, Settings } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Bell, Search, User, LogOut, Settings, Info, AlertTriangle, AlertCircle, CheckCircle2, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -12,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useAuth } from '@/contexts/AuthContext'
+import { notificacionesApi } from '@/services/api'
 
 interface HeaderProps {
   title: string
@@ -21,6 +23,58 @@ interface HeaderProps {
 export function Header({ title, description }: HeaderProps) {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const [notifCount, setNotifCount] = useState(0)
+  const [notifs, setNotifs] = useState<any[]>([])
+  const [notifsOpen, setNotifsOpen] = useState(false)
+
+  useEffect(() => {
+    notificacionesApi.getCount().then(res => {
+      if (res.success && res.data) setNotifCount(res.data.count)
+    }).catch(() => {})
+    // Poll every 60s
+    const interval = setInterval(() => {
+      notificacionesApi.getCount().then(res => {
+        if (res.success && res.data) setNotifCount(res.data.count)
+      }).catch(() => {})
+    }, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const loadNotifs = async () => {
+    try {
+      const res = await notificacionesApi.getAll(10)
+      if (res.success && res.data) setNotifs(res.data)
+    } catch { /* ignore */ }
+  }
+
+  const handleOpenNotifs = () => {
+    if (!notifsOpen) loadNotifs()
+    setNotifsOpen(!notifsOpen)
+  }
+
+  const handleMarkAllRead = async () => {
+    await notificacionesApi.marcarTodasLeidas()
+    setNotifCount(0)
+    setNotifs(prev => prev.map(n => ({ ...n, leida: 1 })))
+  }
+
+  const handleNotifClick = async (notif: any) => {
+    if (!notif.leida) {
+      await notificacionesApi.marcarLeida(notif.id)
+      setNotifCount(prev => Math.max(0, prev - 1))
+    }
+    if (notif.link) navigate(notif.link)
+    setNotifsOpen(false)
+  }
+
+  const notifIcon = (tipo: string) => {
+    switch (tipo) {
+      case 'success': return <CheckCircle2 className="h-4 w-4 text-green-500" />
+      case 'warning': return <AlertTriangle className="h-4 w-4 text-amber-500" />
+      case 'error': return <AlertCircle className="h-4 w-4 text-red-500" />
+      default: return <Info className="h-4 w-4 text-blue-500" />
+    }
+  }
 
   const handleLogout = () => {
     logout()
@@ -61,10 +115,44 @@ export function Header({ title, description }: HeaderProps) {
           </div>
 
           {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-medical-500" />
-          </Button>
+          <DropdownMenu open={notifsOpen} onOpenChange={setNotifsOpen}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative" onClick={handleOpenNotifs}>
+                <Bell className="h-5 w-5" />
+                {notifCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
+                    {notifCount > 9 ? '9+' : notifCount}
+                  </span>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-80" align="end">
+              <DropdownMenuLabel className="flex items-center justify-between">
+                <span>Notificaciones</span>
+                {notifCount > 0 && (
+                  <button onClick={handleMarkAllRead} className="text-xs text-medical-600 hover:underline flex items-center gap-1">
+                    <Check className="h-3 w-3" /> Marcar todas
+                  </button>
+                )}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {notifs.length === 0 ? (
+                <div className="py-4 text-center text-sm text-muted-foreground">Sin notificaciones</div>
+              ) : (
+                notifs.slice(0, 8).map(notif => (
+                  <DropdownMenuItem key={notif.id} className="cursor-pointer py-2" onClick={() => handleNotifClick(notif)}>
+                    <div className="flex gap-2 w-full">
+                      <div className="mt-0.5">{notifIcon(notif.tipo)}</div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm ${notif.leida ? 'text-muted-foreground' : 'font-medium'}`}>{notif.titulo}</p>
+                        <p className="text-xs text-muted-foreground truncate">{notif.mensaje}</p>
+                      </div>
+                    </div>
+                  </DropdownMenuItem>
+                ))
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* User Menu */}
           <DropdownMenu>
