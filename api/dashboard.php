@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Dashboard y Estadísticas
+ * DaliaMed - API de Dashboard y Estadísticas
  */
 
 require_once __DIR__ . '/../config/database.php';

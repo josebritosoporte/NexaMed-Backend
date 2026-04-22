@@ -42,7 +42,7 @@ function App() {
           path="/app" 
           element={
             <ProtectedRoute>
-              <Layout title="Dashboard" description="Vista general de tu consultorio" />
+              <Layout title="Escritorio" description="Vista general de tu consultorio" />
             </ProtectedRoute>
           }
         >

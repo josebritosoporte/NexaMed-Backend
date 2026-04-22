@@ -30,3 +30,9 @@ test-*.php
 
 # Archivos de caché
 *.cache
+
+# Build del frontend
+NexaMed-Frontend/dist/
+
+# Capturas de pantalla
+*.png

@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Consultas Médicas
+ * DaliaMed - API de Consultas Médicas
  */
 
 require_once __DIR__ . '/../models/Consulta.php';
@@ -98,10 +98,11 @@ function handleCreate($data, $consultaModel, $consultorioId, $medicoId) {
         'objetivo' => $data['objetivo'] ?? null,
         'analisis' => $data['analisis'] ?? null,
         'plan' => $data['plan'] ?? null,
-        'notas_adicionales' => $data['notas_adicionales'] ?? null
+        'notas_adicionales' => $data['notas_adicionales'] ?? null,
+        'impresion_diagnostica' => $data['impresion_diagnostica'] ?? null
     ];
     
-    // Procesar diagnósticos
+    // Procesar diagnósticos (compatibilidad)
     $diagnosticos = [];
     if (!empty($data['diagnosticos']) && is_array($data['diagnosticos'])) {
         foreach ($data['diagnosticos'] as $diag) {

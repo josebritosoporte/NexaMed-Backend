@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Middleware de Autenticación
+ * DaliaMed - Middleware de Autenticación
  */
 
 require_once __DIR__ . '/../utils/jwt.php';

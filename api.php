@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API Router Principal (Sin mod_rewrite)
+ * DaliaMed - API Router Principal (Sin mod_rewrite)
  * Punto de entrada para todas las peticiones API
  * 
  * Uso: api.php?endpoint=auth&action=login
@@ -71,7 +71,7 @@ switch ($endpoint) {
         // Endpoint de prueba/health check
         if (empty($endpoint)) {
             Response::success([
-                'message' => 'NexaMed API v1.0',
+                'message' => 'DaliaMed API v1.0',
                 'status' => 'running',
                 'modo' => 'Query String (sin mod_rewrite)',
                 'timestamp' => date('Y-m-d H:i:s'),

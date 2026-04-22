@@ -24,7 +24,7 @@ export default function ImprimirOrden() {
 
   // Cargar configuración del consultorio desde localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('nexamed_consultorio')
+    const saved = localStorage.getItem('daliamed_consultorio')
     if (saved) {
       const config = JSON.parse(saved)
       setConsultorio({

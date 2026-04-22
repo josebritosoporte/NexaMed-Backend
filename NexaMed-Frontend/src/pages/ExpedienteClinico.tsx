@@ -340,7 +340,7 @@ export default function ExpedienteClinico() {
           descripcion: item.subjetivo || 'Sin descripción',
           detalles: {
             'Motivo': item.subjetivo || 'No especificado',
-            'Diagnóstico': item.analisis || 'No especificado',
+            'Impresión Diagnóstica': item.impresion_diagnostica || 'No especificada',
             'Plan': item.plan || 'No especificado'
           },
           estado: 'completada'

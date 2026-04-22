@@ -514,7 +514,7 @@ export default function Usuarios() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="usuario@nexamed.com"
+                  placeholder="usuario@daliamed.com"
                 />
               </div>
             </div>

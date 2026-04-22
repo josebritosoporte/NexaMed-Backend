@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Pacientes
+ * DaliaMed - API de Pacientes
  * Endpoints: GET /, POST /, GET /:id, PUT /:id, DELETE /:id
  */
 

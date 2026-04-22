@@ -71,7 +71,7 @@ const actividadMensual = [
 
 // Datos para gráfico de tipo de consultas
 const tipoConsultas = [
-  { tipo: 'Consulta General', cantidad: 35, porcentaje: 45, color: '#0d9488' },
+  { tipo: 'Consulta General', cantidad: 35, porcentaje: 45, color: '#9B3557' },
   { tipo: 'Control', cantidad: 25, porcentaje: 32, color: '#3b82f6' },
   { tipo: 'Urgencia', cantidad: 12, porcentaje: 15, color: '#ef4444' },
   { tipo: 'Seguimiento', cantidad: 6, porcentaje: 8, color: '#f59e0b' },

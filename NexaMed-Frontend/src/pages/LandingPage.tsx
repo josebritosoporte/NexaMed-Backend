@@ -14,7 +14,7 @@ import {
   Smartphone,
   Users,
   Database,
-  HeartPulse,
+  Flower2,
   BadgeCheck,
   FolderOpen,
   ScanLine,
@@ -97,7 +97,7 @@ const modules = [
     desc: "Útil para equipos con recepción, asistentes y varios especialistas trabajando sobre una misma operación.",
   },
   {
-    icon: HeartPulse,
+    icon: Flower2,
     title: "Especialidades médicas",
     desc: "Adaptable a distintas ramas médicas con formularios y registros según la necesidad del servicio.",
   },
@@ -110,13 +110,13 @@ const modules = [
 
 const steps = [
   "Solicitas una demo y analizamos tu tipo de consulta o centro médico.",
-  "Configuramos NexaMed según tu flujo de trabajo y necesidades principales.",
+  "Configuramos DaliaMed según tu flujo de trabajo y necesidades principales.",
   "Comienzas a registrar pacientes, citas y documentos en una plataforma centralizada.",
 ];
 
 const faqs = [
   {
-    q: "¿NexaMed sirve solo para un médico o también para equipos?",
+    q: "¿DaliaMed sirve solo para un médico o también para equipos?",
     a: "Puede adaptarse tanto a consultorios individuales como a centros médicos con varios usuarios y roles operativos.",
   },
   {
@@ -129,14 +129,14 @@ const faqs = [
   },
   {
     q: "¿La plataforma puede personalizarse?",
-    a: "Sí. NexaMed puede evolucionar con nuevas funciones, formularios y módulos de acuerdo con el tipo de práctica médica.",
+    a: "Sí. DaliaMed puede evolucionar con nuevas funciones, formularios y módulos de acuerdo con el tipo de práctica médica.",
   },
 ];
 
 // Configuración de EmailJS
 // NOTA: Estos son valores de ejemplo. El usuario debe configurar su cuenta en https://www.emailjs.com/
 const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_nexamed',
+  SERVICE_ID: 'service_daliamed',
   TEMPLATE_ID: 'template_demo_request',
   PUBLIC_KEY: 'your_public_key_here',
 };
@@ -201,7 +201,7 @@ function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden">
-        <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 p-6 text-white">
+        <div className="bg-gradient-to-r from-fuchsia-600 to-violet-600 p-6 text-white">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-white">Solicitar Demo</DialogTitle>
             <DialogDescription className="text-white/90">
@@ -219,8 +219,8 @@ function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                 exit={{ opacity: 0, scale: 0.9 }}
                 className="text-center py-8"
               >
-                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                <div className="w-16 h-16 bg-fuchsia-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-8 h-8 text-fuchsia-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">¡Solicitud Enviada!</h3>
                 <p className="text-slate-600">
@@ -299,7 +299,7 @@ function DemoModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 h-11 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600"
+                    className="flex-1 h-11 bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-700 hover:to-violet-700"
                   >
                     {isSubmitting ? (
                       <>
@@ -338,17 +338,17 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-to-b from-emerald-50 via-cyan-50 to-white" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-to-b from-fuchsia-50 via-violet-50 to-white" />
 
       {/* Header con botón de Iniciar Sesión */}
       <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white shadow-sm">
-              <HeartPulse className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-600 to-violet-600 text-white shadow-sm">
+              <Flower2 className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-lg font-semibold tracking-tight">NexaMed</div>
+              <div className="text-lg font-semibold tracking-tight">DaliaMed</div>
               <div className="text-xs text-slate-500">Software médico inteligente</div>
             </div>
           </div>
@@ -370,7 +370,7 @@ export default function LandingPage() {
               Iniciar Sesión
             </Button>
             <Button 
-              className="rounded-full px-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600"
+              className="rounded-full px-5 bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-700 hover:to-violet-700"
               onClick={() => setIsDemoModalOpen(true)}
             >
               Solicitar demo
@@ -391,14 +391,14 @@ export default function LandingPage() {
                   Gestiona tu consulta médica con más orden, rapidez y confianza.
                 </h1>
                 <p className="max-w-xl text-lg leading-8 text-slate-600">
-                  NexaMed digitaliza la historia clínica, organiza citas, centraliza documentos e impulsa una atención más eficiente para médicos, especialistas y centros médicos.
+                  DaliaMed digitaliza la historia clínica, organiza citas, centraliza documentos e impulsa una atención más eficiente para médicos, especialistas y centros médicos.
                 </p>
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button 
                   size="lg" 
-                  className="rounded-full px-7 text-base bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600"
+                  className="rounded-full px-7 text-base bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-700 hover:to-violet-700"
                   onClick={() => setIsDemoModalOpen(true)}
                 >
                   Solicitar demo
@@ -431,8 +431,8 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div className="relative" {...fadeUp}>
-              <div className="absolute -left-8 top-10 h-40 w-40 rounded-full bg-emerald-200/50 blur-3xl" />
-              <div className="absolute -right-6 bottom-0 h-52 w-52 rounded-full bg-cyan-200/50 blur-3xl" />
+              <div className="absolute -left-8 top-10 h-40 w-40 rounded-full bg-fuchsia-200/50 blur-3xl" />
+              <div className="absolute -right-6 bottom-0 h-52 w-52 rounded-full bg-violet-200/50 blur-3xl" />
 
               <Card className="relative overflow-hidden rounded-[28px] border-white/70 shadow-2xl shadow-slate-200/80">
                 <CardContent className="p-0">
@@ -499,7 +499,7 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      <div className="rounded-2xl border bg-gradient-to-br from-emerald-500 to-cyan-500 p-4 text-white">
+                      <div className="rounded-2xl border bg-gradient-to-br from-fuchsia-600 to-violet-600 p-4 text-white">
                         <div className="flex items-center gap-2 text-sm font-medium">
                           <ShieldCheck className="h-4 w-4" />
                           Información organizada y protegida
@@ -544,7 +544,7 @@ export default function LandingPage() {
               <SectionTitle
                 badge="Funciones clave"
                 title="Todo lo esencial para digitalizar tu consulta en una sola plataforma"
-                subtitle="NexaMed está diseñado para ayudarte a trabajar con más claridad, orden y continuidad en cada atención médica."
+                subtitle="DaliaMed está diseñado para ayudarte a trabajar con más claridad, orden y continuidad en cada atención médica."
               />
             </motion.div>
 
@@ -555,7 +555,7 @@ export default function LandingPage() {
                   <motion.div key={feature.title} {...fadeUp} transition={{ duration: 0.45, delay: index * 0.04 }}>
                     <Card className="h-full rounded-3xl border-slate-200 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                       <CardContent className="p-6">
-                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50">
+                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-fuchsia-50">
                           <Icon className="h-6 w-6" />
                         </div>
                         <h3 className="text-lg font-semibold">{feature.title}</h3>
@@ -613,7 +613,7 @@ export default function LandingPage() {
                         <div className="mt-2 text-2xl font-semibold">Disponibles</div>
                       </div>
                     </div>
-                    <div className="rounded-2xl border border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 p-5">
+                    <div className="rounded-2xl border border-fuchsia-400/30 bg-gradient-to-r from-fuchsia-500/20 to-violet-500/20 p-5">
                       <div className="text-sm text-white/70">Resultado</div>
                       <div className="mt-2 text-2xl font-semibold">Una operación médica más moderna y escalable</div>
                     </div>
@@ -631,7 +631,7 @@ export default function LandingPage() {
               <SectionTitle
                 badge="Pensado para crecer"
                 title="Una solución adaptable a distintos tipos de práctica médica"
-                subtitle="Desde consultas privadas hasta equipos de trabajo más amplios, NexaMed puede evolucionar junto a tu operación."
+                subtitle="Desde consultas privadas hasta equipos de trabajo más amplios, DaliaMed puede evolucionar junto a tu operación."
               />
             </motion.div>
 
@@ -642,7 +642,7 @@ export default function LandingPage() {
                   <motion.div key={module.title} {...fadeUp} transition={{ duration: 0.45, delay: index * 0.05 }}>
                     <Card className="h-full rounded-3xl border-slate-200 shadow-sm">
                       <CardContent className="p-6">
-                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50">
+                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50">
                           <Icon className="h-6 w-6" />
                         </div>
                         <h3 className="text-lg font-semibold">{module.title}</h3>
@@ -663,7 +663,7 @@ export default function LandingPage() {
               <SectionTitle
                 badge="Cómo funciona"
                 title="Empieza de forma simple y avanza a tu ritmo"
-                subtitle="La propuesta de NexaMed está diseñada para implementarse de manera práctica, sin complicar la operación médica diaria."
+                subtitle="La propuesta de DaliaMed está diseñada para implementarse de manera práctica, sin complicar la operación médica diaria."
               />
             </motion.div>
 
@@ -691,7 +691,7 @@ export default function LandingPage() {
               <SectionTitle
                 badge="Preguntas frecuentes"
                 title="Lo que un médico o centro de salud quiere saber antes de comenzar"
-                subtitle="Estas respuestas pueden ayudarte a usar la landing como pieza comercial para presentar NexaMed a potenciales clientes."
+                subtitle="Estas respuestas pueden ayudarte a usar la landing como pieza comercial para presentar DaliaMed a potenciales clientes."
               />
             </motion.div>
 
@@ -715,18 +715,18 @@ export default function LandingPage() {
           <div className="mx-auto max-w-7xl">
             <motion.div
               {...fadeUp}
-              className="overflow-hidden rounded-[36px] bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 p-8 text-white md:p-12"
+              className="overflow-hidden rounded-[36px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-violet-600 p-8 text-white md:p-12"
             >
               <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
                 <div className="space-y-4">
                   <Badge className="rounded-full border border-white/25 bg-white/10 px-4 py-1 text-white hover:bg-white/10">
-                    NexaMed
+                    DaliaMed
                   </Badge>
                   <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
                     Moderniza tu práctica médica con una plataforma pensada para crecer contigo.
                   </h2>
                   <p className="max-w-2xl text-base leading-8 text-white/90 md:text-lg">
-                    Presenta NexaMed como una solución profesional, moderna y escalable para médicos que desean dejar atrás el desorden y llevar su consulta a un nuevo nivel.
+                    Presenta DaliaMed como una solución profesional, moderna y escalable para médicos que desean dejar atrás el desorden y llevar su consulta a un nuevo nivel.
                   </p>
                 </div>
 
@@ -759,12 +759,12 @@ export default function LandingPage() {
       <footer className="border-t border-slate-200 px-6 py-8 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="font-semibold">NexaMed</div>
+            <div className="font-semibold">DaliaMed</div>
             <div className="text-sm text-slate-500">
               Plataforma SaaS para la gestión clínica moderna.
             </div>
           </div>
-          <div className="text-sm text-slate-500">© 2026 NexaMed. Todos los derechos reservados.</div>
+          <div className="text-sm text-slate-500">© 2026 DaliaMed. Todos los derechos reservados.</div>
         </div>
       </footer>
 

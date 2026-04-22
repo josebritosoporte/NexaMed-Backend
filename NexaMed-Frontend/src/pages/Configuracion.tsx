@@ -85,7 +85,7 @@ export default function Configuracion() {
 
   // Datos del consultorio - cargar desde localStorage o usar valores por defecto
   const [consultorio, setConsultorio] = useState(() => {
-    const saved = localStorage.getItem('nexamed_consultorio')
+    const saved = localStorage.getItem('daliamed_consultorio')
     if (saved) {
       return JSON.parse(saved)
     }
@@ -156,7 +156,7 @@ export default function Configuracion() {
   const handleGuardarConsultorio = async () => {
     setIsLoading(true)
     try {
-      localStorage.setItem('nexamed_consultorio', JSON.stringify(consultorio))
+      localStorage.setItem('daliamed_consultorio', JSON.stringify(consultorio))
       setShowSuccess(true)
       setTimeout(() => setShowSuccess(false), 3000)
     } catch (err) {

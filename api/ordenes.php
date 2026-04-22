@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Órdenes Médicas
+ * DaliaMed - API de Órdenes Médicas
  */
 
 require_once __DIR__ . '/../config/database.php';

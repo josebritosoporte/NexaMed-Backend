@@ -1,9 +1,9 @@
 /**
- * NexaMed - Servicio API para conexión con backend PHP
+ * DaliaMed - Servicio API para conexión con backend PHP
  */
 
 // URL del backend - usa variable de entorno o valor por defecto (local)
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost/NexaMed/api.php'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost/DaliaMed/api.php'
 
 // Tipos
 export interface ApiResponse<T = any> {
@@ -61,7 +61,7 @@ async function fetchApi<T>(
   }
 
   // Agregar token de autenticación si existe
-  const token = localStorage.getItem('nexamed_token')
+  const token = localStorage.getItem('daliamed_token')
   if (token) {
     config.headers = {
       ...config.headers,
@@ -97,16 +97,16 @@ export const authApi = {
     )
     
     if (response.success && response.data?.token) {
-      localStorage.setItem('nexamed_token', response.data.token)
-      localStorage.setItem('nexamed_user', JSON.stringify(response.data.user))
+      localStorage.setItem('daliamed_token', response.data.token)
+      localStorage.setItem('daliamed_user', JSON.stringify(response.data.user))
     }
     
     return response
   },
 
   logout: () => {
-    localStorage.removeItem('nexamed_token')
-    localStorage.removeItem('nexamed_user')
+    localStorage.removeItem('daliamed_token')
+    localStorage.removeItem('daliamed_user')
   },
 
   getCurrentUser: async () => {
@@ -114,11 +114,11 @@ export const authApi = {
   },
 
   isAuthenticated: () => {
-    return !!localStorage.getItem('nexamed_token')
+    return !!localStorage.getItem('daliamed_token')
   },
 
   getToken: () => {
-    return localStorage.getItem('nexamed_token')
+    return localStorage.getItem('daliamed_token')
   },
 }
 
@@ -165,7 +165,7 @@ export const consultasApi = {
   },
 
   create: async (consulta: any) => {
-    return fetchApi('consultas', {
+    return fetchApi<{id: number}>('consultas', {
       method: 'POST',
       body: JSON.stringify(consulta),
     })
@@ -218,7 +218,7 @@ export const ordenesApi = {
   },
 
   create: async (orden: any) => {
-    return fetchApi('ordenes', {
+    return fetchApi<{id: number}>('ordenes', {
       method: 'POST',
       body: JSON.stringify(orden),
     })

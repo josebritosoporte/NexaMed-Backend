@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Administración de Usuarios
+ * DaliaMed - API de Administración de Usuarios
  * Solo accesible para administradores
  */
 

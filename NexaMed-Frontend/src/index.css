@@ -10,33 +10,33 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 174 72% 35%;
+    --primary: 340 52% 40%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
-    --accent: 174 72% 45%;
+    --accent: 340 52% 50%;
     --accent-foreground: 222 47% 11%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 174 72% 35%;
+    --ring: 340 52% 40%;
     --radius: 0.75rem;
 
-    /* Medical color palette */
-    --medical-50: 174 72% 96%;
-    --medical-100: 174 72% 90%;
-    --medical-200: 174 72% 80%;
-    --medical-300: 174 72% 65%;
-    --medical-400: 174 72% 50%;
-    --medical-500: 174 72% 35%;
-    --medical-600: 174 72% 28%;
-    --medical-700: 174 72% 22%;
-    --medical-800: 174 72% 16%;
-    --medical-900: 174 72% 10%;
-    --medical-950: 174 72% 5%;
+    /* Dahlia color palette — inspired by the Dahlia flower */
+    --medical-50: 340 52% 97%;
+    --medical-100: 340 52% 93%;
+    --medical-200: 340 52% 84%;
+    --medical-300: 340 52% 70%;
+    --medical-400: 340 52% 55%;
+    --medical-500: 340 52% 40%;
+    --medical-600: 340 52% 33%;
+    --medical-700: 340 52% 26%;
+    --medical-800: 340 52% 19%;
+    --medical-900: 340 52% 13%;
+    --medical-950: 340 52% 7%;
 
     /* Semantic tokens */
     --success: 142 76% 36%;
@@ -49,7 +49,7 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --shadow-elegant: 0 10px 30px -10px hsl(174 72% 35% / 0.3);
+    --shadow-elegant: 0 10px 30px -10px hsl(340 52% 40% / 0.3);
     
     /* Transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,7 +58,7 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(174 72% 35%), hsl(174 72% 45%));
+    --gradient-primary: linear-gradient(135deg, hsl(340 52% 40%), hsl(340 52% 50%));
     --gradient-subtle: linear-gradient(180deg, hsl(210 40% 98%), hsl(210 40% 96%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
   }
@@ -70,31 +70,31 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
-    --primary: 174 72% 45%;
+    --primary: 340 52% 50%;
     --primary-foreground: 222 47% 6%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 174 72% 55%;
+    --accent: 340 52% 60%;
     --accent-foreground: 222 47% 6%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 174 72% 45%;
+    --ring: 340 52% 50%;
     
-    --medical-50: 174 72% 10%;
-    --medical-100: 174 72% 15%;
-    --medical-200: 174 72% 20%;
-    --medical-300: 174 72% 30%;
-    --medical-400: 174 72% 40%;
-    --medical-500: 174 72% 50%;
-    --medical-600: 174 72% 60%;
-    --medical-700: 174 72% 70%;
-    --medical-800: 174 72% 80%;
-    --medical-900: 174 72% 90%;
-    --medical-950: 174 72% 95%;
+    --medical-50: 340 52% 10%;
+    --medical-100: 340 52% 15%;
+    --medical-200: 340 52% 20%;
+    --medical-300: 340 52% 30%;
+    --medical-400: 340 52% 40%;
+    --medical-500: 340 52% 50%;
+    --medical-600: 340 52% 60%;
+    --medical-700: 340 52% 70%;
+    --medical-800: 340 52% 80%;
+    --medical-900: 340 52% 90%;
+    --medical-950: 340 52% 95%;
   }
 }
 

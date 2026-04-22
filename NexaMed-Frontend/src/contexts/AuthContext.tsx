@@ -20,12 +20,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Verificar sesión al cargar
   useEffect(() => {
-    const storedUser = localStorage.getItem('nexamed_user')
+    const storedUser = localStorage.getItem('daliamed_user')
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser))
       } catch {
-        localStorage.removeItem('nexamed_user')
+        localStorage.removeItem('daliamed_user')
       }
     }
     setIsLoading(false)

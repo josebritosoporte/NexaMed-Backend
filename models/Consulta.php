@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Modelo Consulta
+ * DaliaMed - Modelo Consulta
  */
 
 require_once __DIR__ . '/../config/database.php';
@@ -132,12 +132,12 @@ class Consulta {
                 paciente_id, medico_id, consultorio_id, fecha,
                 presion_sistolica, presion_diastolica, frecuencia_cardiaca,
                 frecuencia_respiratoria, temperatura, peso, talla, imc, saturacion_oxigeno,
-                subjetivo, objetivo, analisis, plan, notas_adicionales
+                subjetivo, objetivo, analisis, plan, notas_adicionales, impresion_diagnostica
             ) VALUES (
                 :paciente_id, :medico_id, :consultorio_id, CURRENT_TIMESTAMP,
                 :presion_sistolica, :presion_diastolica, :frecuencia_cardiaca,
                 :frecuencia_respiratoria, :temperatura, :peso, :talla, :imc, :saturacion_oxigeno,
-                :subjetivo, :objetivo, :analisis, :plan, :notas_adicionales
+                :subjetivo, :objetivo, :analisis, :plan, :notas_adicionales, :impresion_diagnostica
             )";
             
             $stmt = $this->conn->prepare($sql);
@@ -158,7 +158,8 @@ class Consulta {
                 ':objetivo' => $data['objetivo'] ?? null,
                 ':analisis' => $data['analisis'] ?? null,
                 ':plan' => $data['plan'] ?? null,
-                ':notas_adicionales' => $data['notas_adicionales'] ?? null
+                ':notas_adicionales' => $data['notas_adicionales'] ?? null,
+                ':impresion_diagnostica' => $data['impresion_diagnostica'] ?? null
             ]);
             
             $consultaId = $this->conn->lastInsertId();

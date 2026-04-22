@@ -10,7 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   HeartPulse,
-  Shield
+  Shield,
+  Flower2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
@@ -21,7 +22,7 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { path: '/app', icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/app', icon: LayoutDashboard, label: 'Escritorio' },
   { path: '/app/pacientes', icon: Users, label: 'Pacientes' },
   { path: '/app/consultas', icon: Stethoscope, label: 'Consultas' },
   { path: '/app/ordenes', icon: ClipboardList, label: 'Órdenes' },
@@ -55,11 +56,11 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
         <div className="flex h-16 items-center justify-between px-4 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-medical-500 to-medical-600 shadow-lg">
-              <HeartPulse className="h-6 w-6 text-white" />
+              <Flower2 className="h-6 w-6 text-white" />
             </div>
             {!isCollapsed && (
               <span className="text-xl font-bold text-foreground">
-                NexaMed
+                DaliaMed
               </span>
             )}
           </div>

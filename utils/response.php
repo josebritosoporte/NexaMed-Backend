@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Utilidad para respuestas JSON estandarizadas
+ * DaliaMed - Utilidad para respuestas JSON estandarizadas
  */
 
 class Response {

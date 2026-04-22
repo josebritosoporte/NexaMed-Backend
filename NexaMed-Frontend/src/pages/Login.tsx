@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { HeartPulse, Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react'
+import { Flower2, Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -43,9 +43,9 @@ export default function Login() {
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-medical-500 to-medical-600 shadow-xl flex items-center justify-center mb-4">
-            <HeartPulse className="h-8 w-8 text-white" />
+            <Flower2 className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">NexaMed</h1>
+          <h1 className="text-3xl font-bold text-foreground">DaliaMed</h1>
           <p className="text-muted-foreground mt-1">Gestión Clínica Inteligente</p>
         </div>
 
@@ -144,7 +144,7 @@ export default function Login() {
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-8">
-          © 2026 NexaMed. Todos los derechos reservados.
+          © 2026 DaliaMed. Todos los derechos reservados.
           <br />
           Un desarrollo de Jose Agustin Brito Ojeda
         </p>

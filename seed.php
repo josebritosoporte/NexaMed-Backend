@@ -1,13 +1,13 @@
 <?php
 /**
- * NexaMed - Script de inicialización para Railway
+ * DaliaMed - Script de inicialización para Railway
  * Ejecuta el esquema de base de datos y datos iniciales
  */
 
 header('Content-Type: text/plain; charset=utf-8');
 
 echo "========================================\n";
-echo "NexaMed - Inicialización de Base de Datos\n";
+echo "DaliaMed - Inicialización de Base de Datos\n";
 echo "========================================\n\n";
 
 try {
@@ -19,7 +19,7 @@ try {
     
     echo "✓ Conexión a base de datos exitosa\n";
     echo "  Host: " . (getenv('MYSQLHOST') ?: 'localhost') . "\n";
-    echo "  Database: " . (getenv('MYSQLDATABASE') ?: 'nexamed') . "\n\n";
+    echo "  Database: " . (getenv('MYSQLDATABASE') ?: 'daliamed') . "\n\n";
     
     // Leer archivo SQL
     $sqlFile = __DIR__ . '/database/schema-mysql.sql';
@@ -96,7 +96,7 @@ try {
     }
     
     echo "\nCredenciales de acceso demo:\n";
-    echo "  Email: admin@nexamed.com\n";
+    echo "  Email: admin@daliamed.com\n";
     echo "  Contraseña: admin123\n";
     
 } catch (Exception $e) {

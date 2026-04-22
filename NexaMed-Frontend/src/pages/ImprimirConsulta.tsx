@@ -24,7 +24,7 @@ export default function ImprimirConsulta() {
 
   // Cargar configuración del consultorio desde localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('nexamed_consultorio')
+    const saved = localStorage.getItem('daliamed_consultorio')
     if (saved) {
       const config = JSON.parse(saved)
       setConsultorio({
@@ -230,28 +230,11 @@ export default function ImprimirConsulta() {
           )}
         </div>
 
-        {/* Diagnósticos */}
-        {consulta.diagnosticos && consulta.diagnosticos.length > 0 && (
+        {/* Impresión Diagnóstica */}
+        {consulta.impresion_diagnostica && (
           <div className="border rounded-lg p-4 mb-6">
-            <h3 className="font-bold mb-3 text-medical-700">Diagnósticos</h3>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left py-2">CIE-10</th>
-                  <th className="text-left py-2">Descripción</th>
-                  <th className="text-left py-2">Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {consulta.diagnosticos.map((diag: any, idx: number) => (
-                  <tr key={idx} className="border-b last:border-0">
-                    <td className="py-2 font-mono">{diag.codigo_cie10}</td>
-                    <td className="py-2">{diag.descripcion}</td>
-                    <td className="py-2 capitalize">{diag.tipo || 'Principal'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <h3 className="font-bold mb-3 text-medical-700">Impresión Diagnóstica</h3>
+            <p className="text-sm whitespace-pre-wrap">{consulta.impresion_diagnostica}</p>
           </div>
         )}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Modelo Paciente
+ * DaliaMed - Modelo Paciente
  */
 
 require_once __DIR__ . '/../config/database.php';

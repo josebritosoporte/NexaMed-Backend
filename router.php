@@ -20,7 +20,7 @@ if ($uri === '/health' || $uri === '/health/') {
     header('Content-Type: application/json');
     echo json_encode([
         'status' => 'ok',
-        'service' => 'NexaMed API',
+        'service' => 'DaliaMed API',
         'timestamp' => date('Y-m-d H:i:s')
     ]);
     exit;
@@ -94,7 +94,7 @@ if (is_dir($frontendDist)) {
 // Fallback: Endpoint raíz - información del API (cuando no hay frontend)
 header('Content-Type: application/json');
 echo json_encode([
-    'name' => 'NexaMed API',
+    'name' => 'DaliaMed API',
     'version' => '1.0.0',
     'status' => 'running',
     'endpoints' => [
@@ -107,6 +107,6 @@ echo json_encode([
         'usuarios' => '/api.php?endpoint=usuarios',
         'admin_usuarios' => '/api.php?endpoint=admin_usuarios'
     ],
-    'documentation' => 'https://github.com/nexamed/api-docs'
+    'documentation' => 'https://github.com/daliamed/api-docs'
 ]);
 exit;

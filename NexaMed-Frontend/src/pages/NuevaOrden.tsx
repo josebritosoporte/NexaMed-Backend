@@ -258,7 +258,7 @@ export default function NuevaOrden() {
       </head>
       <body>
         <div class="header">
-          <span class="logo">NexaMed</span>
+          <span class="logo">DaliaMed</span>
           <span class="fecha">${fechaActual}</span>
         </div>
 

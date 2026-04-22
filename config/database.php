@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Configuración de Base de Datos MySQL
+ * DaliaMed - Configuración de Base de Datos MySQL
  * Compatible con XAMPP local y Railway (producción)
  */
 
@@ -25,7 +25,7 @@ class Database {
             // Configuración XAMPP local
             $this->host = getenv('DB_HOST') ?: 'localhost';
             $this->port = getenv('DB_PORT') ?: '3306';
-            $this->db_name = getenv('DB_NAME') ?: 'nexamed';
+            $this->db_name = getenv('DB_NAME') ?: 'daliamed';
             $this->username = getenv('DB_USER') ?: 'root';
             $this->password = getenv('DB_PASS') ?: '';
         }

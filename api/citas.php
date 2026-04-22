@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Citas (Agenda)
+ * DaliaMed - API de Citas (Agenda)
  */
 
 require_once __DIR__ . '/../models/Cita.php';

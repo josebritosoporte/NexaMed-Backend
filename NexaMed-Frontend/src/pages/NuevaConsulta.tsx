@@ -15,7 +15,6 @@ import {
   FileText,
   Plus,
   X,
-  Search,
   Loader2,
   AlertCircle
 } from 'lucide-react'
@@ -33,7 +32,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { formatDate, calculateAge } from '@/lib/utils'
-import { pacientesApi, consultasApi } from '@/services/api'
+import { pacientesApi, consultasApi, ordenesApi } from '@/services/api'
+import OrdenRapidaModal from '@/components/consultas/OrdenRapidaModal'
 
 // Datos de ejemplo del paciente
 const pacienteEjemplo = {
@@ -49,25 +49,6 @@ const pacienteEjemplo = {
   tipoSangre: 'O+',
   medicamentosActuales: 'Losartán 50mg cada 24h'
 }
-
-// Códigos CIE-10 comunes
-const diagnosticosCIE10 = [
-  { codigo: 'I10', descripcion: 'Hipertensión esencial (primaria)' },
-  { codigo: 'I11.9', descripcion: 'Enfermedad cardíaca hipertensiva sin insuficiencia cardíaca' },
-  { codigo: 'E11.9', descripcion: 'Diabetes mellitus tipo 2 sin complicaciones' },
-  { codigo: 'E10.9', descripcion: 'Diabetes mellitus tipo 1 sin complicaciones' },
-  { codigo: 'J00', descripcion: 'Nasofaringitis aguda (resfriado común)' },
-  { codigo: 'J06.9', descripcion: 'Infección aguda de las vías respiratorias superiores, sin especificar' },
-  { codigo: 'K29.7', descripcion: 'Gastritis, sin especificar' },
-  { codigo: 'K21.0', descripcion: 'Reflujo gastroesofágico con esofagitis' },
-  { codigo: 'M54.5', descripcion: 'Lumbago no especificado' },
-  { codigo: 'R51', descripcion: 'Cefalea' },
-  { codigo: 'F32.9', descripcion: 'Episodio depresivo mayor, sin especificar' },
-  { codigo: 'F41.9', descripcion: 'Ansiedad, sin especificar' },
-  { codigo: 'N39.0', descripcion: 'Infección de vías urinarias, sitio no especificado' },
-  { codigo: 'J45.9', descripcion: 'Asma, sin especificar' },
-  { codigo: 'J18.9', descripcion: 'Neumonía, sin especificar' },
-]
 
 // Medicamentos comunes
 const medicamentosComunes = [
@@ -93,13 +74,6 @@ interface SignosVitales {
   saturacionOxigeno: string
 }
 
-interface Diagnostico {
-  id: string
-  codigo: string
-  descripcion: string
-  tipo: 'principal' | 'secundario'
-}
-
 interface MedicamentoReceta {
   id: string
   nombre: string
@@ -116,6 +90,7 @@ export default function NuevaConsulta() {
   const [loadingPaciente, setLoadingPaciente] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [modalOrdenAbierto, setModalOrdenAbierto] = useState(false)
 
   // Cargar datos del paciente
   useEffect(() => {
@@ -163,9 +138,8 @@ export default function NuevaConsulta() {
   const [analisis, setAnalisis] = useState('')
   const [plan, setPlan] = useState('')
 
-  // Diagnósticos
-  const [diagnosticos, setDiagnosticos] = useState<Diagnostico[]>([])
-  const [buscarDiagnostico, setBuscarDiagnostico] = useState('')
+  // Impresión Diagnóstica
+  const [impresionDiagnostica, setImpresionDiagnostica] = useState('')
 
   // Receta
   const [medicamentos, setMedicamentos] = useState<MedicamentoReceta[]>([])
@@ -178,28 +152,6 @@ export default function NuevaConsulta() {
       const imc = (peso / (talla * talla)).toFixed(1)
       setSignosVitales(prev => ({ ...prev, imc }))
     }
-  }
-
-  // Agregar diagnóstico
-  const agregarDiagnostico = (codigo: string, descripcion: string) => {
-    const nuevoDiagnostico: Diagnostico = {
-      id: Date.now().toString(),
-      codigo,
-      descripcion,
-      tipo: diagnosticos.length === 0 ? 'principal' : 'secundario'
-    }
-    setDiagnosticos([...diagnosticos, nuevoDiagnostico])
-    setBuscarDiagnostico('')
-  }
-
-  // Eliminar diagnóstico
-  const eliminarDiagnostico = (id: string) => {
-    const nuevosDiagnosticos = diagnosticos.filter(d => d.id !== id)
-    // Si eliminamos el principal, el primero se convierte en principal
-    if (nuevosDiagnosticos.length > 0 && !nuevosDiagnosticos.some(d => d.tipo === 'principal')) {
-      nuevosDiagnosticos[0].tipo = 'principal'
-    }
-    setDiagnosticos(nuevosDiagnosticos)
   }
 
   // Agregar medicamento
@@ -248,11 +200,7 @@ export default function NuevaConsulta() {
         objetivo,
         analisis,
         plan,
-        diagnosticos: diagnosticos.map(d => ({
-          codigo_cie10: d.codigo,
-          descripcion: d.descripcion,
-          tipo: d.tipo
-        })),
+        impresion_diagnostica: impresionDiagnostica,
         medicamentos: medicamentos.map(m => ({
           nombre: m.nombre,
           dosis: m.dosis,
@@ -270,12 +218,6 @@ export default function NuevaConsulta() {
       setIsLoading(false)
     }
   }
-
-  // Filtrar diagnósticos por búsqueda
-  const diagnosticosFiltrados = diagnosticosCIE10.filter(d =>
-    d.codigo.toLowerCase().includes(buscarDiagnostico.toLowerCase()) ||
-    d.descripcion.toLowerCase().includes(buscarDiagnostico.toLowerCase())
-  )
 
   if (loadingPaciente) {
     return (
@@ -509,7 +451,7 @@ export default function NuevaConsulta() {
 
             <div className="space-y-2">
               <Label className="flex items-center gap-1">
-                <Activity className="h-4 w-4 text-cyan-500" />
+                <Activity className="h-4 w-4 text-violet-500" />
                 SpO2
               </Label>
               <div className="flex gap-2">
@@ -619,64 +561,23 @@ export default function NuevaConsulta() {
         </Card>
       </div>
 
-      {/* Diagnósticos */}
+      {/* Impresión Diagnóstica */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <ClipboardList className="h-5 w-5 text-medical-500" />
-            Diagnósticos (CIE-10)
+            Impresión Diagnóstica
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Diagnósticos seleccionados */}
-          {diagnosticos.length > 0 && (
-            <div className="space-y-2 mb-4">
-              {diagnosticos.map((d) => (
-                <div key={d.id} className="flex items-center justify-between p-3 rounded-lg bg-muted">
-                  <div className="flex items-center gap-3">
-                    <Badge variant={d.tipo === 'principal' ? 'default' : 'secondary'}>
-                      {d.tipo === 'principal' ? 'Principal' : 'Secundario'}
-                    </Badge>
-                    <span className="font-mono text-sm">{d.codigo}</span>
-                    <span>{d.descripcion}</span>
-                  </div>
-                  <Button variant="ghost" size="sm" onClick={() => eliminarDiagnostico(d.id)}>
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Buscar diagnóstico */}
           <div className="space-y-2">
-            <Label>Buscar diagnóstico</Label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Buscar por código o descripción..."
-                value={buscarDiagnostico}
-                onChange={(e) => setBuscarDiagnostico(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            
-            {/* Resultados */}
-            {buscarDiagnostico && (
-              <div className="border rounded-lg max-h-48 overflow-y-auto">
-                {diagnosticosFiltrados.slice(0, 5).map((d) => (
-                  <button
-                    key={d.codigo}
-                    className="w-full text-left px-3 py-2 hover:bg-muted flex items-center gap-3"
-                    onClick={() => agregarDiagnostico(d.codigo, d.descripcion)}
-                  >
-                    <span className="font-mono text-sm text-medical-600">{d.codigo}</span>
-                    <span className="text-sm">{d.descripcion}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+            <Label>Descripción diagnóstica</Label>
+            <Textarea
+              placeholder="Escriba la impresión diagnóstica del paciente..."
+              value={impresionDiagnostica}
+              onChange={(e) => setImpresionDiagnostica(e.target.value)}
+              rows={4}
+            />
           </div>
         </CardContent>
       </Card>
@@ -700,6 +601,30 @@ export default function NuevaConsulta() {
                 onChange={(e) => setPlan(e.target.value)}
                 rows={3}
               />
+            </div>
+
+            {/* Orden Médica Rápida */}
+            <div className="p-4 border-2 border-dashed border-medical-200 rounded-lg bg-medical-50/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label className="flex items-center gap-2 font-semibold">
+                    <ClipboardList className="h-4 w-4 text-medical-600" />
+                    Órdenes Médicas
+                  </Label>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Cree órdenes de laboratorio, imagenología o interconsulta vinculadas a esta consulta
+                  </p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setModalOrdenAbierto(true)}
+                  className="border-medical-300 text-medical-700 hover:bg-medical-100"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Orden Médica
+                </Button>
+              </div>
             </div>
 
             {/* Receta médica */}
@@ -800,6 +725,60 @@ export default function NuevaConsulta() {
           {isLoading ? 'Guardando...' : 'Guardar Consulta'}
         </Button>
       </div>
+
+      {/* Modal Orden Médica Rápida */}
+      <OrdenRapidaModal
+        isOpen={modalOrdenAbierto}
+        onClose={() => setModalOrdenAbierto(false)}
+        paciente={paciente}
+        onGuardarOrden={async (ordenData) => {
+          // 1. Guardar la consulta primero
+          const consultaData = {
+            paciente_id: parseInt(id!),
+            presion_sistolica: signosVitales.presionSistolica ? parseInt(signosVitales.presionSistolica) : null,
+            presion_diastolica: signosVitales.presionDiastolica ? parseInt(signosVitales.presionDiastolica) : null,
+            frecuencia_cardiaca: signosVitales.frecuenciaCardiaca ? parseInt(signosVitales.frecuenciaCardiaca) : null,
+            frecuencia_respiratoria: signosVitales.frecuenciaRespiratoria ? parseInt(signosVitales.frecuenciaRespiratoria) : null,
+            temperatura: signosVitales.temperatura ? parseFloat(signosVitales.temperatura) : null,
+            peso: signosVitales.peso ? parseFloat(signosVitales.peso) : null,
+            talla: signosVitales.talla ? parseFloat(signosVitales.talla) : null,
+            imc: signosVitales.imc ? parseFloat(signosVitales.imc) : null,
+            saturacion_oxigeno: signosVitales.saturacionOxigeno ? parseInt(signosVitales.saturacionOxigeno) : null,
+            subjetivo,
+            objetivo,
+            analisis,
+            plan,
+            impresion_diagnostica: impresionDiagnostica,
+            medicamentos: medicamentos.map(m => ({
+              nombre: m.nombre,
+              dosis: m.dosis,
+              frecuencia: m.frecuencia,
+              duracion: m.duracion,
+              indicaciones: m.indicaciones
+            }))
+          }
+
+          const consultaResponse = await consultasApi.create(consultaData)
+          const consultaId = consultaResponse.data?.id
+
+          // 2. Crear la orden vinculada a la consulta
+          const ordenCompleta = {
+            paciente_id: parseInt(id!),
+            consulta_id: consultaId || null,
+            ...ordenData
+          }
+
+          const ordenResponse = await ordenesApi.create(ordenCompleta)
+          const ordenId = ordenResponse.data?.id
+
+          // 3. Navegar al expediente después de cerrar el modal
+          setTimeout(() => {
+            navigate(`/app/pacientes/${id}/expediente`)
+          }, 500)
+
+          return ordenId || null
+        }}
+      />
     </div>
   )
 }

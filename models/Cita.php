@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Modelo Cita
+ * DaliaMed - Modelo Cita
  */
 
 require_once __DIR__ . '/../config/database.php';

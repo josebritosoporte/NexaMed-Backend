@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - Utilidad para manejo de JWT (JSON Web Tokens)
+ * DaliaMed - Utilidad para manejo de JWT (JSON Web Tokens)
  */
 
 class JWT {
@@ -9,7 +9,7 @@ class JWT {
     private static $token_expiration = 86400; // 24 horas
 
     public static function init() {
-        self::$secret_key = getenv('JWT_SECRET') ?: 'nexamed_secret_key_2026_segura_para_produccion';
+        self::$secret_key = getenv('JWT_SECRET') ?: 'daliamed_secret_key_2026_segura_para_produccion';
     }
 
     /**
@@ -21,7 +21,7 @@ class JWT {
         $header = json_encode(['typ' => 'JWT', 'alg' => self::$encrypt_method]);
         $time = time();
         $payload = json_encode([
-            'iss' => 'nexamed_api',
+            'iss' => 'daliamed_api',
             'iat' => $time,
             'exp' => $time + self::$token_expiration,
             'sub' => $data['id'],

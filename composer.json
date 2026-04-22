@@ -1,6 +1,6 @@
 {
-  "name": "nexamed/nexamed-backend",
-  "description": "Backend API REST para NexaMed - Sistema de Gestión Clínica",
+  "name": "daliamed/daliamed-backend",
+  "description": "Backend API REST para DaliaMed - Sistema de Gestión Clínica",
   "type": "project",
   "require": {
     "php": ">=8.0",

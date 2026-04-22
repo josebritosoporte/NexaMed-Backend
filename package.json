@@ -1,7 +1,7 @@
 {
-  "name": "nexamed",
+  "name": "daliamed",
   "version": "1.0.0",
-  "description": "NexaMed - Sistema de Gestión Clínica (Backend + Frontend)",
+  "description": "DaliaMed - Sistema de Gestión Clínica (Backend + Frontend)",
   "scripts": {
     "build": "cd NexaMed-Frontend && npm install && npm run build",
     "start": "php -S 0.0.0.0:$PORT router.php"

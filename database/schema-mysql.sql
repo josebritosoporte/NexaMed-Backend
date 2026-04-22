@@ -1,10 +1,10 @@
 -- =====================================================
--- NexaMed - Esquema de Base de Datos MySQL
+-- DaliaMed - Esquema de Base de Datos MySQL
 -- =====================================================
 
 -- Crear base de datos (ejecutar esto primero en phpMyAdmin)
--- CREATE DATABASE IF NOT EXISTS nexamed CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- USE nexamed;
+-- CREATE DATABASE IF NOT EXISTS daliamed CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE daliamed;
 
 -- =====================================================
 -- TABLA: consultorios
@@ -104,6 +104,7 @@ CREATE TABLE IF NOT EXISTS consultas (
     plan TEXT,
     
     notas_adicionales TEXT,
+    impresion_diagnostica TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
@@ -227,9 +228,9 @@ INSERT INTO consultorios (nombre, rif, direccion, telefono, email, horario) VALU
 -- Insertar usuarios de prueba (contraseña: admin123)
 -- Password hash generado con: password_hash('admin123', PASSWORD_BCRYPT)
 INSERT INTO usuarios (consultorio_id, email, password_hash, nombre, role, especialidad, registro_medico, telefono) VALUES
-(1, 'dr.rodriguez@nexamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Dr. Carlos Rodríguez', 'doctor', 'Medicina Interna', 'MN-12345', '+58 412-1234567'),
-(1, 'asistente@nexamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'María González', 'assistant', NULL, NULL, '+58 412-9876543'),
-(1, 'admin@nexamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrador', 'admin', NULL, NULL, '+58 412-5555555');
+(1, 'dr.rodriguez@daliamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Dr. Carlos Rodríguez', 'doctor', 'Medicina Interna', 'MN-12345', '+58 412-1234567'),
+(1, 'asistente@daliamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'María González', 'assistant', NULL, NULL, '+58 412-9876543'),
+(1, 'admin@daliamed.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrador', 'admin', NULL, NULL, '+58 412-5555555');
 
 -- Insertar pacientes de ejemplo
 INSERT INTO pacientes (consultorio_id, nombres, apellidos, cedula, fecha_nacimiento, sexo, estado_civil, ocupacion, telefono, email, direccion, ciudad, contacto_emergencia_nombre, contacto_emergencia_telefono, contacto_emergencia_relacion, alergias, antecedentes_medicos, medicamentos_actuales, tipo_sangre, ultima_visita) VALUES

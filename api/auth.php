@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API de Autenticación
+ * DaliaMed - API de Autenticación
  * Endpoints: POST /login, POST /logout, GET /me
  */
 

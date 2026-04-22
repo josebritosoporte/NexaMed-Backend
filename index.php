@@ -1,6 +1,6 @@
 <?php
 /**
- * NexaMed - API Router Principal
+ * DaliaMed - API Router Principal
  * Punto de entrada para todas las peticiones API
  */
 
@@ -18,7 +18,7 @@ $cors->handle();
 
 // Obtener la ruta de la URL
 $requestUri = $_SERVER['REQUEST_URI'];
-$basePath = '/NexaMed-Backend/';
+$basePath = '/DaliaMed/';
 $path = parse_url($requestUri, PHP_URL_PATH);
 
 // Remover basePath si existe
@@ -68,7 +68,7 @@ switch ($endpoint) {
         // Endpoint de prueba/health check
         if (empty($endpoint)) {
             Response::success([
-                'message' => 'NexaMed API v1.0',
+                'message' => 'DaliaMed API v1.0',
                 'status' => 'running',
                 'timestamp' => date('Y-m-d H:i:s')
             ]);
